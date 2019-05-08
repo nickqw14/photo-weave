@@ -1,0 +1,14 @@
+.gridContainer {
+	width: 1300px;
+	.grid {
+			display: grid;
+			max-width: 100%;
+			grid-gap: 20px;
+			grid-template-columns: repeat(auto-fill, minmax(365px, 2fr));
+			grid-auto-rows: minmax(267px, auto);
+			grid-auto-flow: dense;
+			@media (max-width: 365px) {
+					display: inline;
+			}
+	}
+}
