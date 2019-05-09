@@ -11,6 +11,8 @@ type State = {
 	page: number;
 	perPage: number;
 	loading: boolean;
+	width: number;
+	height: number;
 };
 
 class App extends Component {
@@ -20,9 +22,14 @@ class App extends Component {
 		images: [],
 		page: 1,
 		perPage: 30,
-		query: "",
-		loading: false
+		query: "new orleans",
+		loading: false,
+		width: 0,
+		height: 0
 	};
+	componentWillMount() {
+		this.callAPI();
+	}
 	// Make API call to Unsplash
 	callAPI = () => {
 		const { page, perPage } = this.state;
@@ -78,7 +85,7 @@ class App extends Component {
 		this.callAPI();
 	};
 	render() {
-		const { images, loading } = this.state;
+		const { images, loading, width, height } = this.state;
 		return (
 			<div className={styles.App}>
 				<Search onChange={this.handleChange} onSubmit={this.handleSubmit} />
