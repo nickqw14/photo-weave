@@ -13,6 +13,8 @@ type State = {
 	loading: boolean;
 	width: number;
 	height: number;
+	res: {};
+	randomPhoto: "";
 };
 
 class App extends Component {
@@ -25,12 +27,39 @@ class App extends Component {
 		query: "new orleans",
 		loading: false,
 		width: 0,
-		height: 0
+		height: 0,
+		res: {},
+		randomPhoto: ""
 	};
 	componentWillMount() {
 		this.callAPI();
+		this.getRandomPhoto();
 	}
-	// Make API call to Unsplash
+	getRandomPhoto = () => {
+		const url: string = "https://api.unsplash.com/photos/random";
+		const clientID: string =
+			"9ac9908fc8f8067a3bfae8c3264fa8f2722acb93bfb1b580b9ed3fcc515b042d";
+		const options = {
+			headers: {
+				Authorization: `Client-ID ${clientID}`
+			}
+		};
+		fetch(url, options).then(res => {
+			if (res.status !== 200) {
+				this.setState({
+					res: `There is a problem, error code = ${res.status}`
+				});
+				return;
+			}
+			res.json().then(data => {
+				this.setState({
+					res: data,
+					randomPhoto: data.urls.regular
+				});
+			});
+		});
+	};
+	// Make API call to Unsplash to get list Photos
 	callAPI = () => {
 		const { page, perPage } = this.state;
 		// Unsplash API
@@ -85,10 +114,14 @@ class App extends Component {
 		this.callAPI();
 	};
 	render() {
-		const { images, loading, width, height } = this.state;
+		const { images, loading, randomPhoto } = this.state;
 		return (
 			<div className={styles.App}>
-				<Search onChange={this.handleChange} onSubmit={this.handleSubmit} />
+				<Search
+					background={randomPhoto}
+					onChange={this.handleChange}
+					onSubmit={this.handleSubmit}
+				/>
 				<Grid loading={loading} images={images} />
 			</div>
 		);
