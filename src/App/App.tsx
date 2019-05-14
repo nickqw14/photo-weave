@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styles from "./app.module.scss";
 import Grid from "../Grid/containers/Grid";
-import Search from "../Search/containers/Search";
+import Welcome from "../Welcome/containers/Welcome";
 
 type State = {
 	response: {};
@@ -13,8 +13,6 @@ type State = {
 	loading: boolean;
 	width: number;
 	height: number;
-	res: {};
-	randomPhoto: "";
 };
 
 class App extends Component {
@@ -24,41 +22,14 @@ class App extends Component {
 		images: [],
 		page: 1,
 		perPage: 30,
-		query: "new orleans",
+		query: "",
 		loading: false,
 		width: 0,
-		height: 0,
-		res: {},
-		randomPhoto: ""
+		height: 0
 	};
 	componentWillMount() {
 		this.callAPI();
-		this.getRandomPhoto();
 	}
-	getRandomPhoto = () => {
-		const url: string = "https://api.unsplash.com/photos/random";
-		const clientID: string =
-			"9ac9908fc8f8067a3bfae8c3264fa8f2722acb93bfb1b580b9ed3fcc515b042d";
-		const options = {
-			headers: {
-				Authorization: `Client-ID ${clientID}`
-			}
-		};
-		fetch(url, options).then(res => {
-			if (res.status !== 200) {
-				this.setState({
-					res: `There is a problem, error code = ${res.status}`
-				});
-				return;
-			}
-			res.json().then(data => {
-				this.setState({
-					res: data,
-					randomPhoto: data.urls.regular
-				});
-			});
-		});
-	};
 	// Make API call to Unsplash to get list Photos
 	callAPI = () => {
 		const { page, perPage } = this.state;
@@ -114,15 +85,19 @@ class App extends Component {
 		this.callAPI();
 	};
 	render() {
-		const { images, loading, randomPhoto } = this.state;
+		const { images, loading } = this.state;
 		return (
 			<div className={styles.App}>
-				<Search
-					background={randomPhoto}
-					onChange={this.handleChange}
-					onSubmit={this.handleSubmit}
-				/>
-				<Grid loading={loading} images={images} />
+				{images.length > 0 ? (
+					<Grid
+						onChange={this.handleChange}
+						onSubmit={this.handleSubmit}
+						loading={loading}
+						images={images}
+					/>
+				) : (
+					<Welcome onChange={this.handleChange} onSubmit={this.handleSubmit} />
+				)}
 			</div>
 		);
 	}

@@ -4,7 +4,6 @@ import styles from "../styles/search.module.scss";
 type Props = {
 	onChange: (value: any) => void;
 	onSubmit: () => void;
-	background: string;
 };
 
 class Search extends React.Component<Props> {
@@ -15,10 +14,9 @@ class Search extends React.Component<Props> {
 	};
 
 	render() {
-		const { onChange, onSubmit, background } = this.props;
+		const { onChange, onSubmit } = this.props;
 		return (
 			<div onSubmit={onSubmit} className={styles.searchContainer}>
-				<h1>N</h1>
 				<input
 					className={styles.searchInput}
 					onChange={this.handleChange}

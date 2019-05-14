@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import styles from "../styles/grid.module.scss";
 import { GridTile } from "../components/GridTile";
+import Search from "../../Search/containers/Search";
 
 type Props = {
 	images: [];
 	loading: boolean;
+	onChange: (value: string) => void;
+	onSubmit: () => void;
 };
 
 class Grid extends React.Component<Props, {}> {
 	render() {
-		const { images, loading } = this.props;
+		const { images, loading, onChange, onSubmit } = this.props;
 		return (
 			<div className={styles.gridContainer}>
+				<Search onChange={onChange} onSubmit={onSubmit} />
 				{loading ? (
 					<span>Loading</span>
 				) : (
