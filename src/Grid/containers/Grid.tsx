@@ -16,22 +16,19 @@ class Grid extends React.Component<Props, {}> {
 		return (
 			<div className={styles.gridContainer}>
 				<Search onChange={onChange} onSubmit={onSubmit} />
-				{loading ? (
-					<span>Loading</span>
-				) : (
-					<div className={styles.grid}>
-						{images.map((image: any) => {
-							return (
-								<GridTile
-									image={image.urls.small}
-									key={image.id}
-									portrait={image.height > image.width ? true : false}
-									profileImage={image.user.profile_image.medium}
-									userName={image.user.name}
-								/>
-							);
-						})}
-					</div>
+				<div className={styles.grid}>
+					{images.map((image: any) => {
+						return (
+							<GridTile
+								image={image.urls.small}
+								key={image.id}
+								portrait={image.height > image.width ? true : false}
+								profileImage={image.user.profile_image.medium}
+								userName={image.user.name}
+							/>
+						);
+					})}
+				</div>
 				)}
 			</div>
 		);

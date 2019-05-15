@@ -46,9 +46,7 @@ class App extends Component {
 				Authorization: `Client-ID ${clientID}`
 			}
 		};
-		// Each time the API gets called it adds 1 to the current page
 		this.setState({
-			page: this.state.page + 1,
 			loading: true
 		});
 		// Fetch the data from unsplash
@@ -88,15 +86,24 @@ class App extends Component {
 		const { images, loading } = this.state;
 		return (
 			<div className={styles.App}>
-				{images.length > 0 ? (
-					<Grid
-						onChange={this.handleChange}
-						onSubmit={this.handleSubmit}
-						loading={loading}
-						images={images}
-					/>
+				{loading ? (
+					<span>Loading...</span>
 				) : (
-					<Welcome onChange={this.handleChange} onSubmit={this.handleSubmit} />
+					<div className={styles.App}>
+						{images.length > 0 ? (
+							<Grid
+								onChange={this.handleChange}
+								onSubmit={this.handleSubmit}
+								loading={loading}
+								images={images}
+							/>
+						) : (
+							<Welcome
+								onChange={this.handleChange}
+								onSubmit={this.handleSubmit}
+							/>
+						)}
+					</div>
 				)}
 			</div>
 		);
