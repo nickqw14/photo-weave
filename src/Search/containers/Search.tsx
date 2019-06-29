@@ -16,12 +16,14 @@ class Search extends React.Component<Props> {
 	render() {
 		const { onChange, onSubmit } = this.props;
 		return (
-			<div onSubmit={onSubmit} className={styles.searchContainer}>
-				<input
-					className={styles.searchInput}
-					onChange={this.handleChange}
-					placeholder={"Search millions of high-resolution photos"}
-				/>
+			<div className={styles.searchContainer}>
+				<form onSubmit={onSubmit}>
+					<input
+						className={styles.searchInput}
+						onChange={this.handleChange}
+						placeholder={"Search millions of high-resolution photos"}
+					/>
+				</form>
 				<button className={styles.searchSubmit} onClick={onSubmit}>
 					Search
 				</button>

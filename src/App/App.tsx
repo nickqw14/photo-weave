@@ -3,6 +3,7 @@ import styles from "./app.module.scss";
 import Grid from "../Grid/containers/Grid";
 import Welcome from "../Welcome/containers/Welcome";
 import InfiniteScroll from "react-infinite-scroller";
+import { totalmem } from "os";
 
 type State = {
 	error: boolean;
@@ -13,31 +14,32 @@ type State = {
 	loading: boolean;
 	width: number;
 	height: number;
-	hasMore: boolean;
+	totalPages: number;
 };
 
 class App extends Component {
 	state: State = {
 		error: false,
 		images: [],
-		page: 1,
+		page: 0,
 		perPage: 30,
-		query: "javascript",
+		query: "bbq",
 		loading: false,
 		width: 0,
 		height: 0,
-		hasMore: true
+		totalPages: 0
 	};
 	// Make API call to Unsplash to get list Photos
 	callAPI = () => {
-		let { page, perPage } = this.state;
+		let { page, perPage, totalPages } = this.state;
+		const limiter = true;
 		// Unsplash API
 		const url: string = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${
 			this.state.query
 		}`;
 		// My Unsplash developer ID
 		const clientID: string =
-			"9ac9908fc8f8067a3bfae8c3264fa8f2722acb93bfb1b580b9ed3fcc515b042d";
+			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
 		// Authorization
 		const options = {
 			headers: {
@@ -61,8 +63,8 @@ class App extends Component {
 					this.setState({
 						images: [...this.state.images, ...data.results],
 						loading: false,
-						hasMore: true,
-						page: page += 1
+						page: page += 1,
+						totalPages: limiter ? 4 : data.total_pages
 					})
 				);
 			})
@@ -86,12 +88,12 @@ class App extends Component {
 	};
 
 	render() {
-		const { images, loading, hasMore } = this.state;
+		const { images, loading, totalPages, page } = this.state;
 		return (
 			<InfiniteScroll
 				pageStart={0}
 				loadMore={this.callAPI}
-				hasMore={hasMore}
+				hasMore={page <= totalPages ? true : false}
 				loader={
 					loading && (
 						<div className="loader" key={0}>
@@ -103,7 +105,7 @@ class App extends Component {
 				initialLoad={true}
 				useCapture={true}
 				isReverse={false}
-				threshold={50}
+				threshold={500}
 			>
 				<div className={styles.App}>
 					<Grid
