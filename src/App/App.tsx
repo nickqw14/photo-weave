@@ -2,6 +2,7 @@ import React, { Component, Suspense, lazy } from "react";
 import styles from "./app.module.scss";
 import Grid from "../Grid/containers/Grid";
 import Welcome from "../Welcome/containers/Welcome";
+import Loading from "../Loading/components/Loading";
 import InfiniteScroll from "react-infinite-scroller";
 import { totalmem } from "os";
 
@@ -15,6 +16,8 @@ type State = {
 	width: number;
 	height: number;
 	totalPages: number;
+	modalOn: boolean;
+	modalImage: string;
 };
 
 class App extends Component {
@@ -23,11 +26,13 @@ class App extends Component {
 		images: [],
 		page: 0,
 		perPage: 30,
-		query: "bbq",
+		query: "",
 		loading: false,
 		width: 0,
 		height: 0,
-		totalPages: 0
+		totalPages: 0,
+		modalOn: false,
+		modalImage: ""
 	};
 	// Make API call to Unsplash to get list Photos
 	callAPI = () => {
@@ -80,29 +85,38 @@ class App extends Component {
 	};
 	// Submits the users search request and calls API
 	handleSubmit = () => {
+		// event.preventDefault - for onsubmit enter keypress
 		this.setState({
 			response: {},
-			images: []
+			images: [],
+			page: 1
 		});
 		this.callAPI();
 	};
+	handleModal = (image: string) => {
+		this.setState({
+			modalOn: !this.state.modalOn,
+			modalImage: image
+		});
+	};
 
 	render() {
-		const { images, loading, totalPages, page } = this.state;
+		const {
+			images,
+			loading,
+			totalPages,
+			page,
+			modalOn,
+			modalImage
+		} = this.state;
 		return (
 			<InfiniteScroll
 				pageStart={0}
 				loadMore={this.callAPI}
 				hasMore={page <= totalPages ? true : false}
-				loader={
-					loading && (
-						<div className="loader" key={0}>
-							Loading ...
-						</div>
-					)
-				}
+				loader={loading && <Loading />}
 				useWindow={true}
-				initialLoad={true}
+				initialLoad={false}
 				useCapture={true}
 				isReverse={false}
 				threshold={500}
@@ -113,6 +127,9 @@ class App extends Component {
 						loading={loading}
 						onChange={this.handleChange}
 						onSubmit={this.handleSubmit}
+						handleModal={this.handleModal}
+						modalOn={modalOn}
+						modalImage={modalImage}
 					/>
 				</div>
 			</InfiniteScroll>

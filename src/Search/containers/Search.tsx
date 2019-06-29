@@ -24,9 +24,9 @@ class Search extends React.Component<Props> {
 						placeholder={"Search millions of high-resolution photos"}
 					/>
 				</form>
-				<button className={styles.searchSubmit} onClick={onSubmit}>
+				<div className={styles.searchSubmit} onClick={onSubmit}>
 					Search
-				</button>
+				</div>
 			</div>
 		);
 	}
