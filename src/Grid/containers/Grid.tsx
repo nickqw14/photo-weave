@@ -45,6 +45,7 @@ class Grid extends React.Component<Props, {}> {
 						);
 					})}
 				</div>
+				{loading && <Loading />}
 			</div>
 		);
 	}

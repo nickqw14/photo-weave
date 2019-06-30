@@ -89,7 +89,7 @@ class App extends Component {
 		this.setState({
 			response: {},
 			images: [],
-			page: 1
+			page: 1 /* Resets page number, but on API call it pulls the previous state */
 		});
 		this.callAPI();
 	};
@@ -114,7 +114,6 @@ class App extends Component {
 				pageStart={0}
 				loadMore={this.callAPI}
 				hasMore={page <= totalPages ? true : false}
-				loader={loading && <Loading />}
 				useWindow={true}
 				initialLoad={false}
 				useCapture={true}

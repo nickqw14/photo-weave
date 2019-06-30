@@ -6,7 +6,13 @@ import styles from "../styles/loading.module.scss";
 class Loading extends React.Component {
 	render() {
 		return (
-			<FontAwesomeIcon className={styles.spinner} icon={faSpinner} size="4x" />
+			<div className={styles.loadingContainer}>
+				<FontAwesomeIcon
+					className={styles.spinner}
+					icon={faSpinner}
+					size="4x"
+				/>
+			</div>
 		);
 	}
 }

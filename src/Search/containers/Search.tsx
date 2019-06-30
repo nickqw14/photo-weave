@@ -21,7 +21,7 @@ class Search extends React.Component<Props> {
 					<input
 						className={styles.searchInput}
 						onChange={this.handleChange}
-						placeholder={"Search millions of high-resolution photos"}
+						placeholder={"Search Photos"}
 					/>
 				</form>
 				<div className={styles.searchSubmit} onClick={onSubmit}>
