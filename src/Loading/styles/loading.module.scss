@@ -14,9 +14,11 @@
 	height: 40px;
 	display: flex;
 	justify-content: center;
-	margin: 25px;
+	align-items: center;
+	margin: 35px;
 }
 .spinner {
 	-webkit-animation: rotate 1.5s linear infinite;
 	animation: rotate 1.5s linear infinite;
+	color: #505050;
 }

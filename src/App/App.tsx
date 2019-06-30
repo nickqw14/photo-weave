@@ -36,12 +36,12 @@ class App extends Component {
 	};
 	// Make API call to Unsplash to get list Photos
 	callAPI = () => {
-		let { page, perPage, totalPages } = this.state;
+		const { perPage, totalPages } = this.state;
 		const limiter = true;
 		// Unsplash API
-		const url: string = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${
-			this.state.query
-		}`;
+		const url: string = `https://api.unsplash.com/search/photos?page=${
+			this.state.page
+		}&per_page=${perPage}&query=${this.state.query}`;
 		// My Unsplash developer ID
 		const clientID: string =
 			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
@@ -68,7 +68,7 @@ class App extends Component {
 					this.setState({
 						images: [...this.state.images, ...data.results],
 						loading: false,
-						page: page += 1,
+						page: this.state.page += 1,
 						totalPages: limiter ? 4 : data.total_pages
 					})
 				);

@@ -1,11 +1,23 @@
 .modalContainer {
+	z-index: 5;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(173, 173, 173, 0.51);
+	background-color: rgba(0, 0, 0, 0.45);
 	position: fixed;
 	top: 0;
 	left: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	.thumbnail {
+		width: 80vw;
+		height: 100vh;
+		background-color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	@media (min-width: 765px) {
+		width: 100%;
+	}
 }
