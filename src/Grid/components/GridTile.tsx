@@ -10,10 +10,14 @@ type Props = {
 	userName: string;
 	modalOn: boolean;
 	handler: string;
+	modalHeight: number;
+	modalWidth: number;
 	handleModal: (
 		image: string,
 		userName: string,
 		handler: string,
+		height: number,
+		width: number,
 		profileImage?: string
 	) => void;
 };
@@ -26,7 +30,9 @@ export const GridTile: React.SFC<Props> = props => {
 		userName,
 		modalOn,
 		handleModal,
-		handler
+		handler,
+		modalHeight,
+		modalWidth
 	} = props;
 	const imageStyles = {
 		backgroundImage: `url(${image})`,
@@ -41,7 +47,14 @@ export const GridTile: React.SFC<Props> = props => {
 			className={`${styles.gridItem} ${portrait ? styles.portraitOn : null}`}
 			style={imageStyles}
 			onClick={() => {
-				handleModal(image, userName, handler, profileImage);
+				handleModal(
+					image,
+					userName,
+					handler,
+					modalHeight,
+					modalWidth,
+					profileImage
+				);
 			}}
 		>
 			<div className={styles.userWrapper}>

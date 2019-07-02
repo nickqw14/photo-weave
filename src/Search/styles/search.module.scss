@@ -19,7 +19,7 @@
 		color: #505050;
 		border-radius: 20px;
 		outline: none;
-		margin-right: 14px;
+		margin-right: 0px;
 		border: 1pt solid #eeeeee;
 		font-size: 14px;
 		&:hover {
@@ -27,6 +27,7 @@
 		}
 		@media (min-width: 465px) {
 			width: 70vw;
+			margin-right: 14px;
 		}
 	}
 	::-webkit-input-placeholder {

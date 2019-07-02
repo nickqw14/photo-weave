@@ -9,36 +9,43 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	.thumbnail {
-		width: 100vw;
-		height: 40vh;
+	.closeModal {
+		position: absolute;
+		top: 5px;
+		left: 5px;
+	}
+	.portraitThumbnail {
+		width: 100vh;
+		height: 100vh;
 		display: flex;
-		justify-content: space-between;
+		justify-content: space-around;
 		align-items: center;
 		flex-direction: column;
 		background-color: white;
-		@media (min-width: 750px) {
-			width: 80vw;
-			height: 70vh;
-		}
-		.userCardContainer {
-			width: 100%;
-			height: 70px;
-		}
-		.modalImage {
-			width: 100%;
-			height: 100%;
-			background-size: contain;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			@media (min-width: 750px) {
-				width: 80%;
-				height: 80%;
-			}
-		}
 	}
-	@media (min-width: 765px) {
+	.landscapeThumbnail {
 		width: 100%;
+		height: 400px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		flex-direction: column;
+		background-color: white;
+	}
+	.userCardContainer {
+		width: 100%;
+		height: 70px;
+	}
+	.modalImage {
+		width: 100%;
+		height: 100%;
+		background-size: contain;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@media (min-width: 750px) {
+			width: 80%;
+			height: 80%;
+		}
 	}
 }

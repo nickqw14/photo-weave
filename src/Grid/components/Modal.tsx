@@ -7,10 +7,21 @@ type Props = {
 	profileImage: string;
 	userName: string;
 	handler: string;
+	modalHeight: number;
+	modalWidth: number;
+	closeModal: () => void;
 };
 
 export const Modal: React.SFC<Props> = props => {
-	const { modalImage, profileImage, userName, handler } = props;
+	const {
+		modalImage,
+		profileImage,
+		userName,
+		handler,
+		modalHeight,
+		modalWidth,
+		closeModal
+	} = props;
 	const imageStyles = {
 		backgroundImage: `url(${modalImage})`,
 		backgroundRepeat: "no-repeat",
@@ -18,7 +29,16 @@ export const Modal: React.SFC<Props> = props => {
 	};
 	return (
 		<div className={styles.modalContainer}>
-			<div className={styles.thumbnail}>
+			<span className={styles.closeModal} onClick={closeModal}>
+				X
+			</span>
+			<div
+				className={
+					modalHeight > modalWidth
+						? `${styles.portraitThumbnail}`
+						: `${styles.landscapeThumbnail}`
+				}
+			>
 				<div className={styles.userCardContainer}>
 					<UserCard
 						profileImage={profileImage ? profileImage : ""}

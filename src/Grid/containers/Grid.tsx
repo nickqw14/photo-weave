@@ -4,6 +4,7 @@ import { GridTile } from "../components/GridTile";
 import Search from "../../Search/containers/Search";
 import Loading from "../../Loading/components/Loading";
 import { Modal } from "../components/Modal";
+import { UserCard } from "../components/UserCard";
 
 type Props = {
 	images: [];
@@ -15,12 +16,17 @@ type Props = {
 		image: string,
 		userName: string,
 		handler: string,
+		height: number,
+		width: number,
 		profileImage?: string
 	) => void;
+	handleCloseModal: () => void;
 	modalImage: string;
 	profileImage: string;
 	userName: string;
 	handler: string;
+	modalHeight: number;
+	modalWidth: number;
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -35,7 +41,10 @@ class Grid extends React.Component<Props, {}> {
 			modalImage,
 			profileImage,
 			userName,
-			handler
+			handler,
+			modalHeight,
+			modalWidth,
+			handleCloseModal
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
@@ -46,6 +55,9 @@ class Grid extends React.Component<Props, {}> {
 						profileImage={profileImage ? profileImage : ""}
 						userName={userName}
 						handler={handler}
+						modalHeight={modalHeight}
+						modalWidth={modalWidth}
+						closeModal={handleCloseModal}
 					/>
 				)}
 				<div className={styles.grid}>
@@ -60,6 +72,8 @@ class Grid extends React.Component<Props, {}> {
 								handler={image.user.username}
 								handleModal={handleModal}
 								modalOn={modalOn}
+								modalHeight={image.height}
+								modalWidth={image.width}
 							/>
 						);
 					})}

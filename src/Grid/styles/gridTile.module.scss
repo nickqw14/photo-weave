@@ -1,7 +1,8 @@
 .gridItem {
 	overflow: hidden;
-	@media (max-width: 365px) {
-		margin-bottom: 20px;
+	margin-bottom: 20px;
+	@media (min-width: 365px) {
+		margin-bottom: 0px;
 	}
 	display: flex;
 	align-items: flex-end;
