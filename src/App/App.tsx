@@ -18,6 +18,9 @@ type State = {
 	totalPages: number;
 	modalOn: boolean;
 	modalImage: string;
+	profileImage: string;
+	userName: string;
+	handler: string;
 };
 
 class App extends Component {
@@ -32,7 +35,10 @@ class App extends Component {
 		height: 0,
 		totalPages: 0,
 		modalOn: false,
-		modalImage: ""
+		modalImage: "",
+		profileImage: "",
+		userName: "",
+		handler: ""
 	};
 	// Make API call to Unsplash to get list Photos
 	callAPI = () => {
@@ -89,14 +95,22 @@ class App extends Component {
 		this.setState({
 			response: {},
 			images: [],
-			page: 1 /* Resets page number, but on API call it pulls the previous state */
+			page: 1
 		});
 		this.callAPI();
 	};
-	handleModal = (image: string) => {
+	handleModal = (
+		image: string,
+		userName: string,
+		handler: string,
+		profileImage?: string
+	) => {
 		this.setState({
 			modalOn: !this.state.modalOn,
-			modalImage: image
+			modalImage: image,
+			userName: userName,
+			profileImage: profileImage,
+			handler: handler
 		});
 	};
 
@@ -107,7 +121,10 @@ class App extends Component {
 			totalPages,
 			page,
 			modalOn,
-			modalImage
+			modalImage,
+			userName,
+			profileImage,
+			handler
 		} = this.state;
 		return (
 			<InfiniteScroll
@@ -129,6 +146,9 @@ class App extends Component {
 						handleModal={this.handleModal}
 						modalOn={modalOn}
 						modalImage={modalImage}
+						profileImage={profileImage}
+						userName={userName}
+						handler={handler}
 					/>
 				</div>
 			</InfiniteScroll>

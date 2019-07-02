@@ -11,8 +11,16 @@ type Props = {
 	modalOn: boolean;
 	onChange: (value: string) => void;
 	onSubmit: () => void;
-	handleModal: (image: string) => void;
+	handleModal: (
+		image: string,
+		userName: string,
+		handler: string,
+		profileImage?: string
+	) => void;
 	modalImage: string;
+	profileImage: string;
+	userName: string;
+	handler: string;
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -24,12 +32,22 @@ class Grid extends React.Component<Props, {}> {
 			onSubmit,
 			handleModal,
 			modalOn,
-			modalImage
+			modalImage,
+			profileImage,
+			userName,
+			handler
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
 				<Search onChange={onChange} onSubmit={onSubmit} />
-				{modalOn && <Modal modalImage={modalImage} />}
+				{modalOn && (
+					<Modal
+						modalImage={modalImage}
+						profileImage={profileImage ? profileImage : ""}
+						userName={userName}
+						handler={handler}
+					/>
+				)}
 				<div className={styles.grid}>
 					{images.map((image: any) => {
 						return (
@@ -39,6 +57,7 @@ class Grid extends React.Component<Props, {}> {
 								portrait={image.height > image.width ? true : false}
 								profileImage={image.user.profile_image.medium}
 								userName={image.user.name}
+								handler={image.user.username}
 								handleModal={handleModal}
 								modalOn={modalOn}
 							/>
