@@ -4,6 +4,8 @@ import styles from "../styles/search.module.scss";
 type Props = {
 	onChange: (value: any) => void;
 	onSubmit: () => void;
+	onHomePage: boolean;
+	image?: string;
 };
 
 class Search extends React.Component<Props> {

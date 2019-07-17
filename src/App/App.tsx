@@ -1,10 +1,9 @@
 import React, { Component, Suspense, lazy } from "react";
 import styles from "./app.module.scss";
 import Grid from "../Grid/containers/Grid";
-import Welcome from "../Welcome/containers/Welcome";
 import Loading from "../Loading/components/Loading";
+import Search from "../Search/containers/Search";
 import InfiniteScroll from "react-infinite-scroller";
-import { totalmem } from "os";
 
 type State = {
 	error: boolean;
@@ -24,6 +23,7 @@ type State = {
 	modalHeight: number;
 	modalWidth: number;
 	modalDescription: string;
+	randomPhoto: string;
 };
 
 class App extends Component {
@@ -44,11 +44,52 @@ class App extends Component {
 		handler: "",
 		modalHeight: 0,
 		modalWidth: 0,
-		modalDescription: ""
+		modalDescription: "",
+		randomPhoto: ""
+	};
+	componentDidMount() {
+		this.getRandomPhoto();
+	}
+	getRandomPhoto = () => {
+		// Unsplash API
+		const url: string = "https://api.unsplash.com/photos/random";
+
+		const clientID: string =
+			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
+
+		const options = {
+			headers: {
+				Authorization: `Client-ID ${clientID}`
+			}
+		};
+		// Fetch the data from unsplash
+		fetch(url, options)
+			.then(response => {
+				if (response.status !== 200) {
+					this.setState({
+						response: `There was a problem, status code ${response.status}`,
+						loading: false
+					});
+					return;
+				}
+				this.setState({
+					loading: true
+				});
+				response.json().then(data =>
+					this.setState({
+						randomPhoto: data,
+						loading: false
+					})
+				);
+			})
+			.catch(err =>
+				this.setState({ error: true, response: err, loading: false })
+			);
 	};
 	// Make API call to Unsplash to get list Photos
 	callAPI = () => {
 		const { perPage, totalPages } = this.state;
+		// Limits pulling max 4 pages per request
 		const limiter = true;
 		// Unsplash API
 		const url: string = `https://api.unsplash.com/search/photos?page=${
@@ -146,7 +187,13 @@ class App extends Component {
 			modalWidth,
 			modalDescription
 		} = this.state;
-		return (
+		return !images ? (
+			<Search
+				onHomePage={true}
+				onChange={this.handleChange}
+				onSubmit={this.handleSubmit}
+			/>
+		) : (
 			<InfiniteScroll
 				pageStart={0}
 				loadMore={this.callAPI}

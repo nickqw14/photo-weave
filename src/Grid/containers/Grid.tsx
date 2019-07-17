@@ -51,7 +51,7 @@ class Grid extends React.Component<Props, {}> {
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
-				<Search onChange={onChange} onSubmit={onSubmit} />
+				<Search onHomePage={false} onChange={onChange} onSubmit={onSubmit} />
 				{modalOn && (
 					<Modal
 						modalImage={modalImage}
