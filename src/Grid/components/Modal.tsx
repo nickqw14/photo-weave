@@ -1,4 +1,6 @@
 import * as React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { UserCard } from "../../Grid/components/UserCard";
 import styles from "../styles/modal.module.scss";
 
@@ -29,9 +31,9 @@ export const Modal: React.SFC<Props> = props => {
 	};
 	return (
 		<div className={styles.modalContainer}>
-			<span className={styles.closeModal} onClick={closeModal}>
-				X
-			</span>
+			<div className={styles.closeModal} onClick={closeModal}>
+				<FontAwesomeIcon size="2x" icon={faTimes} />
+			</div>
 			<div
 				className={
 					modalHeight > modalWidth

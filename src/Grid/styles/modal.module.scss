@@ -11,8 +11,10 @@
 	align-items: center;
 	.closeModal {
 		position: absolute;
-		top: 5px;
-		left: 5px;
+		top: 8px;
+		left: 8px;
+		color: white;
+		cursor: pointer;
 	}
 	.portraitThumbnail {
 		width: calc(100vw - 175px);
@@ -23,6 +25,9 @@
 		align-items: center;
 		flex-direction: column;
 		border-radius: 5px;
+		@media (max-width: 750px) {
+			width: 100%;
+		}
 	}
 	.landscapeThumbnail {
 		width: calc(100vw - 175px);
@@ -33,6 +38,9 @@
 		align-items: center;
 		flex-direction: column;
 		border-radius: 5px;
+		@media (max-width: 750px) {
+			width: 100%;
+		}
 	}
 	.userCardContainer {
 		width: 100%;
