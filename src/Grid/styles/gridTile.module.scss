@@ -1,10 +1,12 @@
 .gridItem {
 	overflow: hidden;
-    @media (max-width: 365px) {
-        margin-bottom: 20px;
+	margin-bottom: 20px;
+	@media (min-width: 365px) {
+		margin-bottom: 0px;
 	}
 	display: flex;
 	align-items: flex-end;
+	cursor: pointer;
 	.userWrapper {
 		width: 100%;
 		height: 100%;
@@ -14,19 +16,18 @@
 		opacity: 0;
 	}
 	&:hover {
-	    .userWrapper {
+		.userWrapper {
 			opacity: 1;
-			transition: opacity .5s;
+			transition: opacity 0.5s;
 		}
 	}
 	.image {
-        width: 100%;
-        height: 100%;
-        transform: scale(1.03);
+		width: 100%;
+		height: 100%;
+		transform: scale(1.03);
 		min-width: 320px;
 	}
-
 }
 .portraitOn {
-	grid-row-end: span 2
+	grid-row-end: span 2;
 }
