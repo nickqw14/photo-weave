@@ -11,6 +11,7 @@ type Props = {
 	handler: string;
 	modalHeight: number;
 	modalWidth: number;
+	description: string;
 	closeModal: () => void;
 };
 
@@ -22,7 +23,8 @@ export const Modal: React.SFC<Props> = props => {
 		handler,
 		modalHeight,
 		modalWidth,
-		closeModal
+		closeModal,
+		description
 	} = props;
 	const imageStyles = {
 		backgroundImage: `url(${modalImage})`,
@@ -50,6 +52,9 @@ export const Modal: React.SFC<Props> = props => {
 					/>
 				</div>
 				<div className={styles.modalImage} style={imageStyles} />
+				<div className={styles.descriptionContainer}>
+					<p>{description}</p>
+				</div>
 			</div>
 		</div>
 	);

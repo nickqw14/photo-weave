@@ -12,12 +12,14 @@ type Props = {
 	handler: string;
 	modalHeight: number;
 	modalWidth: number;
+	description: string;
 	handleModal: (
 		image: string,
 		userName: string,
 		handler: string,
 		height: number,
 		width: number,
+		description: string,
 		profileImage?: string
 	) => void;
 };
@@ -32,7 +34,8 @@ export const GridTile: React.SFC<Props> = props => {
 		handleModal,
 		handler,
 		modalHeight,
-		modalWidth
+		modalWidth,
+		description
 	} = props;
 	const imageStyles = {
 		backgroundImage: `url(${image})`,
@@ -53,6 +56,7 @@ export const GridTile: React.SFC<Props> = props => {
 					handler,
 					modalHeight,
 					modalWidth,
+					description,
 					profileImage
 				);
 			}}

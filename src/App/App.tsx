@@ -23,6 +23,7 @@ type State = {
 	handler: string;
 	modalHeight: number;
 	modalWidth: number;
+	modalDescription: string;
 };
 
 class App extends Component {
@@ -42,7 +43,8 @@ class App extends Component {
 		userName: "",
 		handler: "",
 		modalHeight: 0,
-		modalWidth: 0
+		modalWidth: 0,
+		modalDescription: ""
 	};
 	// Make API call to Unsplash to get list Photos
 	callAPI = () => {
@@ -109,6 +111,7 @@ class App extends Component {
 		handler: string,
 		height: number,
 		width: number,
+		description: string,
 		profileImage?: string
 	) => {
 		this.setState({
@@ -118,7 +121,8 @@ class App extends Component {
 			profileImage: profileImage,
 			handler: handler,
 			modalHeight: height,
-			modalWidth: width
+			modalWidth: width,
+			modalDescription: description
 		});
 	};
 	handleCloseModal = () => {
@@ -139,7 +143,8 @@ class App extends Component {
 			profileImage,
 			handler,
 			modalHeight,
-			modalWidth
+			modalWidth,
+			modalDescription
 		} = this.state;
 		return (
 			<InfiniteScroll
@@ -166,6 +171,7 @@ class App extends Component {
 						handler={handler}
 						modalHeight={modalHeight}
 						modalWidth={modalWidth}
+						modalDescription={modalDescription}
 						handleCloseModal={this.handleCloseModal}
 					/>
 				</div>

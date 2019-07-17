@@ -18,6 +18,7 @@ type Props = {
 		handler: string,
 		height: number,
 		width: number,
+		description: string,
 		profileImage?: string
 	) => void;
 	handleCloseModal: () => void;
@@ -27,6 +28,7 @@ type Props = {
 	handler: string;
 	modalHeight: number;
 	modalWidth: number;
+	modalDescription: string;
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -44,7 +46,8 @@ class Grid extends React.Component<Props, {}> {
 			handler,
 			modalHeight,
 			modalWidth,
-			handleCloseModal
+			handleCloseModal,
+			modalDescription
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
@@ -58,6 +61,7 @@ class Grid extends React.Component<Props, {}> {
 						modalHeight={modalHeight}
 						modalWidth={modalWidth}
 						closeModal={handleCloseModal}
+						description={modalDescription}
 					/>
 				)}
 				<div className={styles.grid}>
@@ -65,6 +69,7 @@ class Grid extends React.Component<Props, {}> {
 						return (
 							<GridTile
 								image={image.urls.regular}
+								description={image.description}
 								key={image.id}
 								portrait={image.height > image.width ? true : false}
 								profileImage={image.user.profile_image.medium}
