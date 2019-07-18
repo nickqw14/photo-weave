@@ -16,18 +16,38 @@ class Search extends React.Component<Props> {
 	};
 
 	render() {
-		const { onChange, onSubmit } = this.props;
+		const { onChange, onSubmit, image, onHomePage } = this.props;
+
+		const imageStyles = {
+			backgroundImage: `url(${image})`,
+			backgroundRepeat: "no-repeat",
+			backgroundPosition: "center",
+			backgroundSize: "cover"
+		};
 		return (
-			<div className={styles.searchContainer}>
-				<form onSubmit={onSubmit}>
-					<input
-						className={styles.searchInput}
-						onChange={this.handleChange}
-						placeholder={"Search Photos"}
-					/>
-				</form>
-				<div className={styles.searchSubmit} onClick={onSubmit}>
-					Search
+			<div
+				style={imageStyles}
+				className={
+					onHomePage ? `${styles.searchOnHome}` : `${styles.searchContainer}`
+				}
+			>
+				<div className={styles.content}>
+					{onHomePage && (
+						<div className={styles.greeting}>
+							<h1>Nick Splash</h1>
+							<h3>A mini unsplash replica, search millions of photos</h3>
+						</div>
+					)}
+					<form className={styles.formContainer} onSubmit={onSubmit}>
+						<input
+							className={styles.searchInput}
+							onChange={this.handleChange}
+							placeholder={"Search Photos"}
+						/>
+						<div className={styles.searchSubmit} onClick={onSubmit}>
+							Search
+						</div>
+					</form>
 				</div>
 			</div>
 		);

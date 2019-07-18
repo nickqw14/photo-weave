@@ -12,6 +12,7 @@ type State = {
 	page: number;
 	perPage: number;
 	loading: boolean;
+	loaded: boolean;
 	width: number;
 	height: number;
 	totalPages: number;
@@ -24,6 +25,7 @@ type State = {
 	modalWidth: number;
 	modalDescription: string;
 	randomPhoto: string;
+	welcome: true;
 };
 
 class App extends Component {
@@ -34,6 +36,7 @@ class App extends Component {
 		perPage: 30,
 		query: "",
 		loading: false,
+		loaded: false,
 		width: 0,
 		height: 0,
 		totalPages: 0,
@@ -45,7 +48,8 @@ class App extends Component {
 		modalHeight: 0,
 		modalWidth: 0,
 		modalDescription: "",
-		randomPhoto: ""
+		randomPhoto: "",
+		welcome: true
 	};
 	componentDidMount() {
 		this.getRandomPhoto();
@@ -77,7 +81,7 @@ class App extends Component {
 				});
 				response.json().then(data =>
 					this.setState({
-						randomPhoto: data,
+						randomPhoto: data.urls.regular,
 						loading: false
 					})
 				);
@@ -121,8 +125,10 @@ class App extends Component {
 					this.setState({
 						images: [...this.state.images, ...data.results],
 						loading: false,
+						loaded: true,
 						page: this.state.page += 1,
-						totalPages: limiter ? 4 : data.total_pages
+						totalPages: limiter ? 4 : data.total_pagesd,
+						welcome: false
 					})
 				);
 			})
@@ -142,7 +148,9 @@ class App extends Component {
 		this.setState({
 			response: {},
 			images: [],
-			page: 1
+			page: 1,
+			loaded: false,
+			welcome: false
 		});
 		this.callAPI();
 	};
@@ -185,13 +193,17 @@ class App extends Component {
 			handler,
 			modalHeight,
 			modalWidth,
-			modalDescription
+			modalDescription,
+			randomPhoto,
+			loaded,
+			welcome
 		} = this.state;
-		return !images ? (
+		return welcome ? (
 			<Search
 				onHomePage={true}
 				onChange={this.handleChange}
 				onSubmit={this.handleSubmit}
+				image={randomPhoto}
 			/>
 		) : (
 			<InfiniteScroll
