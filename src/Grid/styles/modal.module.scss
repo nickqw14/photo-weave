@@ -25,22 +25,30 @@
 	animation-fill-mode: forwards;
 	.closeModal {
 		position: absolute;
-		top: 10px;
-		right: 10px;
+		top: 15px;
+		right: 15px;
 		color: black;
 		cursor: pointer;
 		z-index: 100;
+		@media (min-width: 465px) {
+			top: 8px;
+			right: 8px;
+		}
 	}
 	.portraitThumbnail {
 		width: 100vw;
 		min-width: 320px;
+		max-width: 1300px;
 		height: 100vh;
 		display: flex;
 		background: white;
 		justify-content: space-between;
 		align-items: center;
 		flex-direction: column;
-		border-radius: 5px;
+		@media (min-width: 765px) {
+			width: calc(100vw - 180px);
+			justify-content: space-around;
+		}
 	}
 	.landscapeThumbnail {
 		width: 100vw;
@@ -51,7 +59,10 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		border-radius: 5px;
+		@media (min-width: 765px) {
+			width: calc(100vw - 180px);
+			justify-content: space-around;
+		}
 	}
 	.userCardContainer {
 		width: 100%;
@@ -66,6 +77,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		@media (min-width: 1065px) {
+			transform: scale(1.1);
+		}
 	}
 	.landscapeImage {
 		width: 100%;
@@ -75,6 +89,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		@media (min-width: 1065px) {
+			transform: scale(1.4);
+		}
 	}
 	.descriptionContainer {
 		width: 100%;

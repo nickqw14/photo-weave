@@ -34,7 +34,7 @@ class Search extends React.Component<Props> {
 				<div className={styles.content}>
 					{onHomePage && (
 						<div className={styles.greeting}>
-							<h1>Nick Splash</h1>
+							<h1>Photo Weave</h1>
 							<h3>A mini unsplash replica, search millions of photos</h3>
 						</div>
 					)}

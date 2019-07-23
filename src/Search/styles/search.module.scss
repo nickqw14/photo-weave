@@ -39,11 +39,12 @@
 			align-items: center;
 			.searchInput {
 				max-width: 1150px;
-				width: 90vw;
-				height: 25px;
+				min-width: 300px;
+				width: 99vw;
+				height: 35px;
+				min-height: 35px;
 				background-color: #eeeeee;
 				color: #505050;
-				border-radius: 20px;
 				outline: none;
 				margin-right: 0px;
 				border: 1pt solid #eeeeee;
