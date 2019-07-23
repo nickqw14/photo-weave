@@ -1,3 +1,11 @@
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
 .searchContainer {
 	width: 100%;
 	height: 70px;
@@ -116,19 +124,25 @@
 				margin: 0 0 5px 0;
 				padding: 0;
 				font-size: 43px;
-				font-weight: 200;
+				font-weight: 300;
 				letter-spacing: 0.2em;
-				@media (min-width: 328px) {
+				opacity: 0;
+				animation: fadeIn 1s ease-in;
+				animation-fill-mode: forwards;
+				@media (min-width: 345px) {
 					font-size: 46px;
 				}
 			}
 			h3 {
 				margin: 0;
 				padding: 0;
-				font-weight: 200;
+				font-weight: 300;
+				opacity: 0;
+				animation: fadeIn 0.75s ease-in 0.75s;
+				animation-fill-mode: forwards;
 			}
 			@media (min-width: 465px) {
-				width: calc(70vw + 120px);
+				width: calc(70vw + 134px);
 			}
 		}
 		.formContainer {
@@ -138,9 +152,13 @@
 			justify-content: space-between;
 			align-items: center;
 			flex-direction: column;
+			opacity: 0;
+			animation: fadeIn 1s linear 1.5s;
+			animation-fill-mode: forwards;
 			@media (min-width: 465px) {
 				justify-content: center;
 				flex-direction: row;
+				height: 50px;
 			}
 			.searchInput {
 				max-width: 1150px;
@@ -165,28 +183,28 @@
 			::-webkit-input-placeholder {
 				/* Chrome/Opera/Safari */
 				font-size: 14px;
-				font-weight: 200;
+				font-weight: 300;
 				letter-spacing: 0.2em;
 				display: flex;
 			}
 			::-moz-placeholder {
 				/* Firefox 19+ */
 				font-size: 14px;
-				font-weight: 200;
+				font-weight: 300;
 				letter-spacing: 0.2em;
 				display: flex;
 			}
 			:-ms-input-placeholder {
 				/* IE 10+ */
 				font-size: 14px;
-				font-weight: 200;
+				font-weight: 300;
 				letter-spacing: 0.2em;
 				display: flex;
 			}
 			:-moz-placeholder {
 				/* Firefox 18- */
 				font-size: 14px;
-				font-weight: 200;
+				font-weight: 300;
 				letter-spacing: 0.2em;
 				display: flex;
 			}
