@@ -51,7 +51,14 @@ export const Modal: React.SFC<Props> = props => {
 						handler={handler}
 					/>
 				</div>
-				<div className={styles.modalImage} style={imageStyles} />
+				<div
+					className={
+						modalHeight > modalWidth
+							? `${styles.portraitImage}`
+							: `${styles.landscapeImage}`
+					}
+					style={imageStyles}
+				/>
 				<div className={styles.descriptionContainer}>
 					<p>{description}</p>
 				</div>
