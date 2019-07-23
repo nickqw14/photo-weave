@@ -1,6 +1,15 @@
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 .modalContainer {
 	min-width: 320px;
-	z-index: 5;
+	z-index: 80;
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.45);
@@ -11,6 +20,9 @@
 	justify-content: center;
 	align-items: center;
 	z-index: 11;
+	opacity: 0;
+	animation: fade 0.3s linear;
+	animation-fill-mode: forwards;
 	.closeModal {
 		position: absolute;
 		top: 10px;
