@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styles from "../styles/grid.module.scss";
 import { GridTile } from "../components/GridTile";
-import Search from "../../Search/containers/Search";
 import { Nav } from "../components/Nav";
 import Loading from "../../Loading/components/Loading";
 import { Modal } from "../components/Modal";
@@ -56,7 +55,12 @@ class Grid extends React.Component<Props, {}> {
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
-				<Search onChange={onChange} onSubmit={onSubmit} onHomePage={welcome} />
+				<Nav
+					handleGoHome={handleGoHome}
+					onChange={onChange}
+					welcome={welcome}
+					onSubmit={onSubmit}
+				/>
 				{modalOn && (
 					<Modal
 						modalImage={modalImage}
