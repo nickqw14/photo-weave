@@ -52,56 +52,14 @@ class App extends Component {
 		welcome: true
 	};
 	componentDidMount() {
-		this.getRandomPhoto();
-	}
-	getRandomPhoto = () => {
-		// Unsplash API
 		const url: string = "https://api.unsplash.com/photos/random";
-
 		const clientID: string =
 			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
-
-		const options = {
-			headers: {
-				Authorization: `Client-ID ${clientID}`
-			}
-		};
-		// Fetch the data from unsplash
-		fetch(url, options)
-			.then(response => {
-				if (response.status !== 200) {
-					this.setState({
-						response: `There was a problem, status code ${response.status}`,
-						loading: false
-					});
-					return;
-				}
-				this.setState({
-					loading: true
-				});
-				response.json().then(data =>
-					this.setState({
-						randomPhoto: data.urls.regular,
-						loading: false
-					})
-				);
-			})
-			.catch(err =>
-				this.setState({ error: true, response: err, loading: false })
-			);
-	};
-	// Make API call to Unsplash to get list Photos
-	callAPI = () => {
-		const { perPage, totalPages } = this.state;
-		// Limits pulling max 4 pages per request
+		const grid = false;
+		this.callAPI(url, clientID, grid);
+	}
+	callAPI = (url: string, clientID: string, grid: boolean) => {
 		const limiter = true;
-		// Unsplash API
-		const url: string = `https://api.unsplash.com/search/photos?page=${
-			this.state.page
-		}&per_page=${perPage}&query=${this.state.query}`;
-		// My Unsplash developer ID
-		const clientID: string =
-			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
 		// Authorization
 		const options = {
 			headers: {
@@ -121,16 +79,24 @@ class App extends Component {
 				this.setState({
 					loading: true
 				});
-				response.json().then(data =>
-					this.setState({
-						images: [...this.state.images, ...data.results],
-						loading: false,
-						loaded: true,
-						page: this.state.page += 1,
-						totalPages: limiter ? 4 : data.total_pagesd,
-						welcome: false
-					})
-				);
+				if (grid) {
+					response.json().then(data =>
+						this.setState({
+							images: [...this.state.images, ...data.results],
+							loading: false,
+							loaded: true,
+							page: this.state.page += 1,
+							totalPages: limiter ? 4 : data.total_pagesd,
+							welcome: false
+						})
+					);
+				} else {
+					response.json().then(data =>
+						this.setState({
+							randomPhoto: data.urls.regular
+						})
+					);
+				}
 			})
 			.catch(err =>
 				this.setState({ error: true, response: err, loading: false })
@@ -144,6 +110,13 @@ class App extends Component {
 	};
 	// Submits the users search request and calls API
 	handleSubmit = () => {
+		const url: string = `https://api.unsplash.com/search/photos?page=${
+			this.state.page
+		}&per_page=${this.state.perPage}&query=${this.state.query}`;
+		// My Unsplash developer ID
+		const clientID: string =
+			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
+		const grid = true;
 		// event.preventDefault - for onsubmit enter keypress
 		this.setState({
 			response: {},
@@ -152,7 +125,7 @@ class App extends Component {
 			loaded: false,
 			welcome: false
 		});
-		this.callAPI();
+		this.callAPI(url, clientID, grid);
 	};
 	/* Refactor, change from multiple arguments to take one object */
 	handleModal = (
@@ -174,6 +147,16 @@ class App extends Component {
 			modalWidth: width,
 			modalDescription: description
 		});
+	};
+	handleLoadMore = () => {
+		const url: string = `https://api.unsplash.com/search/photos?page=${
+			this.state.page
+		}&per_page=${this.state.perPage}&query=${this.state.query}`;
+		// My Unsplash developer ID
+		const clientID: string =
+			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
+		const grid = true;
+		this.callAPI(url, clientID, grid);
 	};
 	handleCloseModal = () => {
 		this.setState({
@@ -213,7 +196,7 @@ class App extends Component {
 		) : (
 			<InfiniteScroll
 				pageStart={0}
-				loadMore={this.callAPI}
+				loadMore={this.handleLoadMore}
 				hasMore={page <= totalPages ? true : false}
 				useWindow={true}
 				initialLoad={false}
