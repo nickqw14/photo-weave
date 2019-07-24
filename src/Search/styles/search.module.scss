@@ -8,21 +8,24 @@
 }
 .searchContainer {
 	width: 100%;
-	height: 70px;
+	height: 45px;
 	background-color: white;
 	display: flex;
 	position: fixed;
 	top: 0;
 	left: 0;
-	justify-content: space-around;
+	justify-content: center;
 	flex-direction: column;
 	align-items: center;
 	max-width: 1300px;
+	min-width: 320px;
 	z-index: 10;
-	@media (min-width: 465px) {
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
+	@media screen and (min-width: 465px) {
+		flex-direction: column;
+		height: 70px;
+	}
+	.navWrapper {
+		opacity: 0;
 	}
 	.content {
 		width: 100%;
@@ -33,130 +36,13 @@
 		align-items: center;
 		.formContainer {
 			width: 100%;
-			height: 35px;
+			height: 100%;
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			.searchInput {
-				max-width: 1150px;
-				min-width: 300px;
-				width: 99vw;
-				height: 35px;
-				min-height: 35px;
-				background-color: #eeeeee;
-				color: #505050;
-				outline: none;
-				margin-right: 0px;
-				border: 1pt solid #eeeeee;
-				font-size: 14px;
-				&:hover {
-					border: 1pt solid #dbdbdb;
-				}
-				@media (min-width: 465px) {
-					width: 70vw;
-					margin-right: 14px;
-				}
-			}
-			::-webkit-input-placeholder {
-				/* Chrome/Opera/Safari */
-				font-size: 14px;
-				display: flex;
-			}
-			::-moz-placeholder {
-				/* Firefox 19+ */
-				font-size: 14px;
-				margin-left: 5px;
-			}
-			:-ms-input-placeholder {
-				/* IE 10+ */
-				font-size: 14px;
-				margin-left: 5px;
-			}
-			:-moz-placeholder {
-				/* Firefox 18- */
-				font-size: 14px;
-				margin-left: 5px;
-			}
-			.searchSubmit {
-				height: 35px;
-				width: 120px;
-				border: 1pt solid #eeeeee;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				cursor: pointer;
-				color: #505050;
-				font-weight: 300;
-				border-radius: 4px;
-				letter-spacing: 0.2em;
-				&:hover {
-					background-color: white;
-					border: 1pt solid #505050;
-				}
-			}
-		}
-	}
-}
-/* Styles only when on "Welcome/Home" page */
-.searchOnHome {
-	width: 100%;
-	min-width: 320px;
-	height: 100vh;
-	max-width: 1300px;
-	z-index: 10;
-	@media (min-width: 465px) {
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-	}
-	.content {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		.greeting {
-			display: flex;
 			flex-direction: column;
-			color: white;
-			margin: 0 5px 20px 5px;
-			h1 {
-				margin: 0 0 5px 0;
-				padding: 0;
-				font-size: 43px;
-				font-weight: 300;
-				letter-spacing: 0.2em;
-				opacity: 0;
-				animation: fadeIn 1s ease-in;
-				animation-fill-mode: forwards;
-				@media (min-width: 345px) {
-					font-size: 46px;
-				}
-			}
-			h3 {
-				margin: 0;
-				padding: 0;
-				font-weight: 300;
-				opacity: 0;
-				animation: fadeIn 0.75s ease-in 0.75s;
-				animation-fill-mode: forwards;
-			}
-			@media (min-width: 465px) {
-				width: calc(70vw + 134px);
-			}
-		}
-		.formContainer {
-			width: 100%;
-			height: 100px;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			flex-direction: column;
-			opacity: 0;
-			animation: fadeIn 1s linear 1.5s;
-			animation-fill-mode: forwards;
-			@media (min-width: 465px) {
+			padding-top: 7px;
+			@media screen and (min-width: 465px) {
 				justify-content: center;
 				flex-direction: row;
 				height: 50px;
@@ -172,39 +58,137 @@
 				outline: none;
 				margin-right: 0px;
 				border: 1pt solid #eeeeee;
-				font-size: 14px;
+				font-size: 16px;
 				&:hover {
 					border: 1pt solid #dbdbdb;
 				}
-				@media (min-width: 465px) {
+				@media screen and (min-width: 465px) {
 					width: 70vw;
 					margin-right: 14px;
 				}
 			}
 			::-webkit-input-placeholder {
 				/* Chrome/Opera/Safari */
-				font-size: 14px;
+				font-size: 16px;
+				display: flex;
+			}
+			::-moz-placeholder {
+				/* Firefox 19+ */
+				font-size: 16px;
+				margin-left: 5px;
+			}
+			:-ms-input-placeholder {
+				/* IE 10+ */
+				font-size: 16px;
+				margin-left: 5px;
+			}
+			:-moz-placeholder {
+				/* Firefox 18- */
+				font-size: 16px;
+				margin-left: 5px;
+			}
+			.searchSubmit {
+				height: 35px;
+				width: 120px;
+				border: 1pt solid #eeeeee;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+				color: #505050;
+				font-weight: 300;
+				border-radius: 4px;
+				letter-spacing: 0.2em;
+				opacity: 0;
+				&:hover {
+					background-color: white;
+					border: 1pt solid #505050;
+				}
+				@media screen and (min-width: 465px) {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+/* Styles only when on "Welcome/Home" page */
+.searchOnHome {
+	width: 100%;
+	min-width: 320px;
+	height: 100px;
+	max-width: 1300px;
+	z-index: 10;
+	@media screen and (min-width: 465px) {
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	.content {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		.formContainer {
+			width: 100%;
+			height: 100px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-direction: column;
+			opacity: 0;
+			animation: fadeIn 1s linear 1.5s;
+			animation-fill-mode: forwards;
+			@media screen and (min-width: 465px) {
+				justify-content: center;
+				flex-direction: row;
+				height: 50px;
+			}
+			.searchInput {
+				max-width: 1150px;
+				min-width: 300px;
+				width: 95vw;
+				height: 35px;
+				min-height: 35px;
+				background-color: #eeeeee;
+				color: #505050;
+				outline: none;
+				margin-right: 0px;
+				border: 1pt solid #eeeeee;
+				font-size: 16px;
+				&:hover {
+					border: 1pt solid #dbdbdb;
+				}
+				@media screen and (min-width: 465px) {
+					width: 70vw;
+					margin-right: 14px;
+				}
+			}
+			::-webkit-input-placeholder {
+				/* Chrome/Opera/Safari */
+				font-size: 16px;
 				font-weight: 300;
 				letter-spacing: 0.2em;
 				display: flex;
 			}
 			::-moz-placeholder {
 				/* Firefox 19+ */
-				font-size: 14px;
+				font-size: 16px;
 				font-weight: 300;
 				letter-spacing: 0.2em;
 				display: flex;
 			}
 			:-ms-input-placeholder {
 				/* IE 10+ */
-				font-size: 14px;
+				font-size: 16px;
 				font-weight: 300;
 				letter-spacing: 0.2em;
 				display: flex;
 			}
 			:-moz-placeholder {
 				/* Firefox 18- */
-				font-size: 14px;
+				font-size: 16px;
 				font-weight: 300;
 				letter-spacing: 0.2em;
 				display: flex;

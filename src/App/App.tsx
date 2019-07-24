@@ -2,7 +2,7 @@ import React, { Component, Suspense, lazy } from "react";
 import styles from "./app.module.scss";
 import Grid from "../Grid/containers/Grid";
 import Loading from "../Loading/components/Loading";
-import Search from "../Search/containers/Search";
+import { Welcome } from "../Welcome/containers/Welcome";
 import InfiniteScroll from "react-infinite-scroller";
 
 type State = {
@@ -154,6 +154,7 @@ class App extends Component {
 		});
 		this.callAPI();
 	};
+	/* Refactor, change from multiple arguments to take one object */
 	handleModal = (
 		image: string,
 		userName: string,
@@ -179,7 +180,11 @@ class App extends Component {
 			modalOn: false
 		});
 	};
-
+	handleGoHome = () => {
+		this.setState({
+			welcome: true
+		});
+	};
 	render() {
 		const {
 			images,
@@ -199,11 +204,11 @@ class App extends Component {
 			welcome
 		} = this.state;
 		return welcome ? (
-			<Search
-				onHomePage={true}
+			<Welcome
 				onChange={this.handleChange}
 				onSubmit={this.handleSubmit}
 				image={randomPhoto}
+				onHomePage={welcome}
 			/>
 		) : (
 			<InfiniteScroll
@@ -232,6 +237,8 @@ class App extends Component {
 						modalWidth={modalWidth}
 						modalDescription={modalDescription}
 						handleCloseModal={this.handleCloseModal}
+						welcome={welcome}
+						handleGoHome={this.handleGoHome}
 					/>
 				</div>
 			</InfiniteScroll>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styles from "../styles/grid.module.scss";
 import { GridTile } from "../components/GridTile";
 import Search from "../../Search/containers/Search";
+import { Nav } from "../components/Nav";
 import Loading from "../../Loading/components/Loading";
 import { Modal } from "../components/Modal";
 import { UserCard } from "../components/UserCard";
@@ -29,6 +30,8 @@ type Props = {
 	modalHeight: number;
 	modalWidth: number;
 	modalDescription: string;
+	welcome: boolean;
+	handleGoHome: () => void;
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -47,11 +50,13 @@ class Grid extends React.Component<Props, {}> {
 			modalHeight,
 			modalWidth,
 			handleCloseModal,
-			modalDescription
+			modalDescription,
+			handleGoHome,
+			welcome
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
-				<Search onHomePage={false} onChange={onChange} onSubmit={onSubmit} />
+				<Search onChange={onChange} onSubmit={onSubmit} onHomePage={welcome} />
 				{modalOn && (
 					<Modal
 						modalImage={modalImage}

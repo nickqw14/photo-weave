@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import styles from "../styles/search.module.scss";
+import { Nav } from "../../Grid/components/Nav";
 
 type Props = {
 	onChange: (value: any) => void;
 	onSubmit: () => void;
 	onHomePage: boolean;
-	image?: string;
 };
 
 class Search extends React.Component<Props> {
@@ -16,28 +16,14 @@ class Search extends React.Component<Props> {
 	};
 
 	render() {
-		const { onChange, onSubmit, image, onHomePage } = this.props;
-
-		const imageStyles = {
-			backgroundImage: `url(${image})`,
-			backgroundRepeat: "no-repeat",
-			backgroundPosition: "center",
-			backgroundSize: "cover"
-		};
+		const { onChange, onSubmit, onHomePage } = this.props;
 		return (
 			<div
-				style={imageStyles}
 				className={
 					onHomePage ? `${styles.searchOnHome}` : `${styles.searchContainer}`
 				}
 			>
 				<div className={styles.content}>
-					{onHomePage && (
-						<div className={styles.greeting}>
-							<h1>Photo Weave</h1>
-							<h3>A mini unsplash replica, search millions of photos</h3>
-						</div>
-					)}
 					<form className={styles.formContainer} onSubmit={onSubmit}>
 						<input
 							className={styles.searchInput}
