@@ -10,12 +10,11 @@
 }
 
 .loadingContainer {
-	width: 100%;
-	height: 40px;
+	width: 100vw;
+	height: 20vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 45px;
 }
 .spinner {
 	-webkit-animation: rotate 1.5s linear infinite;
