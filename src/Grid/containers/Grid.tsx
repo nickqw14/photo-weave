@@ -11,7 +11,7 @@ type Props = {
 	loading: boolean;
 	modalOn: boolean;
 	onChange: (value: string) => void;
-	onSubmit: () => void;
+	onSubmit: (event: React.SyntheticEvent) => void;
 	handleModal: (
 		image: string,
 		userName: string,

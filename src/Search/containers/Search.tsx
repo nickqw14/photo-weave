@@ -4,7 +4,7 @@ import { Nav } from "../../Grid/components/Nav";
 
 type Props = {
 	onChange: (value: any) => void;
-	onSubmit: () => void;
+	onSubmit: (event: React.SyntheticEvent) => void;
 	onHomePage: boolean;
 };
 

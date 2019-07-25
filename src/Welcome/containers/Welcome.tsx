@@ -5,7 +5,7 @@ import Search from "../../Search/containers/Search";
 type Props = {
 	image: string;
 	onChange: (value: any) => void;
-	onSubmit: () => void;
+	onSubmit: (event: React.SyntheticEvent) => void;
 	onHomePage: boolean;
 };
 

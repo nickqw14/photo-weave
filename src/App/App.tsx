@@ -109,7 +109,8 @@ class App extends Component {
 		});
 	};
 	// Submits the users search request and calls API
-	handleSubmit = () => {
+	handleSubmit = (event: React.SyntheticEvent) => {
+		event.preventDefault();
 		const url: string = `https://api.unsplash.com/search/photos?page=${
 			this.state.page
 		}&per_page=${this.state.perPage}&query=${this.state.query}`;
@@ -117,7 +118,6 @@ class App extends Component {
 		const clientID: string =
 			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
 		const grid = true;
-		// event.preventDefault - for onsubmit enter keypress
 		this.setState({
 			response: {},
 			images: [],

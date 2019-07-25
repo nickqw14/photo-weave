@@ -6,7 +6,7 @@ type Props = {
 	handleGoHome: () => void;
 	welcome: boolean;
 	onChange: (value: any) => void;
-	onSubmit: () => void;
+	onSubmit: (event: React.SyntheticEvent) => void;
 };
 
 export const Nav: React.SFC<Props> = props => {
