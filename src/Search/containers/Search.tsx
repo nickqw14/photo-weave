@@ -6,6 +6,7 @@ type Props = {
 	onChange: (value: any) => void;
 	onSubmit: (event: React.SyntheticEvent) => void;
 	onHomePage: boolean;
+	emptyFormValue: boolean;
 };
 
 class Search extends React.Component<Props> {
@@ -16,7 +17,7 @@ class Search extends React.Component<Props> {
 	};
 
 	render() {
-		const { onChange, onSubmit, onHomePage } = this.props;
+		const { onChange, onSubmit, onHomePage, emptyFormValue } = this.props;
 		return (
 			<div
 				className={
@@ -34,6 +35,7 @@ class Search extends React.Component<Props> {
 							Search
 						</div>
 					</form>
+					{emptyFormValue && <span>Oops! Please enter a value</span>}
 				</div>
 			</div>
 		);

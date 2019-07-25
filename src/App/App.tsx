@@ -25,7 +25,8 @@ type State = {
 	modalWidth: number;
 	modalDescription: string;
 	randomPhoto: string;
-	welcome: true;
+	welcome: boolean;
+	emptyFormValue: boolean;
 };
 
 class App extends Component {
@@ -49,7 +50,8 @@ class App extends Component {
 		modalWidth: 0,
 		modalDescription: "",
 		randomPhoto: "",
-		welcome: true
+		welcome: true,
+		emptyFormValue: false
 	};
 	componentDidMount() {
 		const url: string = "https://api.unsplash.com/photos/random";
@@ -111,21 +113,28 @@ class App extends Component {
 	// Submits the users search request and calls API
 	handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		const url: string = `https://api.unsplash.com/search/photos?page=${
-			this.state.page
-		}&per_page=${this.state.perPage}&query=${this.state.query}`;
+		const { query, page, perPage } = this.state;
+		const url: string = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}`;
 		// My Unsplash developer ID
 		const clientID: string =
 			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
 		const grid = true;
-		this.setState({
-			response: {},
-			images: [],
-			page: 1,
-			loaded: false,
-			welcome: false
-		});
-		this.callAPI(url, clientID, grid);
+		/* Check value before submitting to API */
+		if (query.length === 0) {
+			this.setState({
+				emptyFormValue: true
+			});
+		} else {
+			this.setState({
+				emptyFormValue: false,
+				response: {},
+				images: [],
+				page: 1,
+				loaded: false,
+				welcome: false
+			});
+			this.callAPI(url, clientID, grid);
+		}
 	};
 	/* Refactor, change from multiple arguments to take one object */
 	handleModal = (
@@ -184,7 +193,8 @@ class App extends Component {
 			modalDescription,
 			randomPhoto,
 			loaded,
-			welcome
+			welcome,
+			emptyFormValue
 		} = this.state;
 		return welcome ? (
 			<Welcome
@@ -192,6 +202,7 @@ class App extends Component {
 				onSubmit={this.handleSubmit}
 				image={randomPhoto}
 				onHomePage={welcome}
+				emptyFormValue={emptyFormValue}
 			/>
 		) : (
 			<InfiniteScroll
@@ -205,6 +216,11 @@ class App extends Component {
 				threshold={500}
 			>
 				<div className={styles.App}>
+					{/* {images.length == 0 && loading == true ? (
+						<Loading />
+					) : (
+						<h1 className={styles.noResults}>No Results</h1>
+					)} */}
 					<Grid
 						images={images}
 						loading={loading}
@@ -222,6 +238,7 @@ class App extends Component {
 						handleCloseModal={this.handleCloseModal}
 						welcome={welcome}
 						handleGoHome={this.handleGoHome}
+						emptyFormValue={emptyFormValue}
 					/>
 				</div>
 			</InfiniteScroll>

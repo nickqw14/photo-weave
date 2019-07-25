@@ -31,6 +31,7 @@ type Props = {
 	modalDescription: string;
 	welcome: boolean;
 	handleGoHome: () => void;
+	emptyFormValue: boolean;
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -51,7 +52,8 @@ class Grid extends React.Component<Props, {}> {
 			handleCloseModal,
 			modalDescription,
 			handleGoHome,
-			welcome
+			welcome,
+			emptyFormValue
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
@@ -60,6 +62,7 @@ class Grid extends React.Component<Props, {}> {
 					onChange={onChange}
 					welcome={welcome}
 					onSubmit={onSubmit}
+					emptyFormValue={emptyFormValue}
 				/>
 				{modalOn && (
 					<Modal
