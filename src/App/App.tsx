@@ -194,7 +194,8 @@ class App extends Component {
 			randomPhoto,
 			loaded,
 			welcome,
-			emptyFormValue
+			emptyFormValue,
+			query
 		} = this.state;
 		return welcome ? (
 			<Welcome
@@ -203,6 +204,7 @@ class App extends Component {
 				image={randomPhoto}
 				onHomePage={welcome}
 				emptyFormValue={emptyFormValue}
+				query={query}
 			/>
 		) : (
 			<InfiniteScroll
@@ -239,6 +241,7 @@ class App extends Component {
 						welcome={welcome}
 						handleGoHome={this.handleGoHome}
 						emptyFormValue={emptyFormValue}
+						query={query}
 					/>
 				</div>
 			</InfiniteScroll>

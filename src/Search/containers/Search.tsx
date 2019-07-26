@@ -7,6 +7,7 @@ type Props = {
 	onSubmit: (event: React.SyntheticEvent) => void;
 	onHomePage: boolean;
 	emptyFormValue: boolean;
+	query: string;
 };
 
 class Search extends React.Component<Props> {
@@ -17,25 +18,43 @@ class Search extends React.Component<Props> {
 	};
 
 	render() {
-		const { onChange, onSubmit, onHomePage, emptyFormValue } = this.props;
+		const {
+			onChange,
+			onSubmit,
+			onHomePage,
+			emptyFormValue,
+			query
+		} = this.props;
+		const center = {
+			justifyContent: "center"
+		};
+		const spaceAround = {
+			justifyContent: "space-around"
+		};
 		return (
 			<div
 				className={
 					onHomePage ? `${styles.searchOnHome}` : `${styles.searchContainer}`
 				}
 			>
-				<div className={styles.content}>
+				<div
+					className={styles.content}
+					style={emptyFormValue ? spaceAround : center}
+				>
 					<form className={styles.formContainer} onSubmit={onSubmit}>
 						<input
 							className={styles.searchInput}
 							onChange={this.handleChange}
 							placeholder={"Search Photos"}
+							value={query}
 						/>
 						<div className={styles.searchSubmit} onClick={onSubmit}>
 							Search
 						</div>
 					</form>
-					{emptyFormValue && <span>Oops! Please enter a value</span>}
+					{emptyFormValue && (
+						<span className={styles.emptyForm}>Oops! Please enter a value</span>
+					)}
 				</div>
 			</div>
 		);

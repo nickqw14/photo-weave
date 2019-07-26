@@ -25,6 +25,7 @@
 		flex-direction: column;
 		height: 80px;
 	}
+
 	.navWrapper {
 		opacity: 0;
 	}
@@ -33,8 +34,17 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
+		.emptyForm {
+			color: #505050;
+			width: 100%;
+			height: 20px;
+			font-size: 16px;
+			font-weight: 300;
+			@media screen and (min-width: 465px) {
+				width: calc(70vw + 134px);
+			}
+		}
 		.formContainer {
 			width: 100%;
 			height: 100%;
@@ -123,7 +133,7 @@
 .searchOnHome {
 	width: 100%;
 	min-width: 320px;
-	height: 100px;
+	height: 80px;
 	max-width: 1300px;
 	z-index: 10;
 	@media screen and (min-width: 525px) {
@@ -136,8 +146,17 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
+		.emptyForm {
+			color: white;
+			width: 100%;
+			height: 20px;
+			font-size: 16px;
+			font-weight: 300;
+			@media screen and (min-width: 465px) {
+				width: calc(70vw + 134px);
+			}
+		}
 		.formContainer {
 			width: 100%;
 			height: 100px;

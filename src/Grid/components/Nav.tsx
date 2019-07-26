@@ -8,10 +8,18 @@ type Props = {
 	onChange: (value: any) => void;
 	onSubmit: (event: React.SyntheticEvent) => void;
 	emptyFormValue: boolean;
+	query: string;
 };
 
 export const Nav: React.SFC<Props> = props => {
-	const { handleGoHome, welcome, onChange, onSubmit, emptyFormValue } = props;
+	const {
+		handleGoHome,
+		welcome,
+		onChange,
+		onSubmit,
+		emptyFormValue,
+		query
+	} = props;
 	return (
 		<div className={styles.navContainer}>
 			<div className={styles.mobileView}>
@@ -24,6 +32,7 @@ export const Nav: React.SFC<Props> = props => {
 					onSubmit={onSubmit}
 					onHomePage={welcome}
 					emptyFormValue={emptyFormValue}
+					query={query}
 				/>
 			</div>
 		</div>

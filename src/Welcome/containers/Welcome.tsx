@@ -8,10 +8,18 @@ type Props = {
 	onSubmit: (event: React.SyntheticEvent) => void;
 	onHomePage: boolean;
 	emptyFormValue: boolean;
+	query: string;
 };
 
 export const Welcome: React.SFC<Props> = props => {
-	const { image, onChange, onSubmit, onHomePage, emptyFormValue } = props;
+	const {
+		image,
+		onChange,
+		onSubmit,
+		onHomePage,
+		emptyFormValue,
+		query
+	} = props;
 	const imageStyles = {
 		backgroundImage: `url(${image})`,
 		backgroundRepeat: "no-repeat",
@@ -30,6 +38,7 @@ export const Welcome: React.SFC<Props> = props => {
 					onSubmit={onSubmit}
 					onHomePage={onHomePage}
 					emptyFormValue={emptyFormValue}
+					query={query}
 				/>
 			</div>
 		</div>
