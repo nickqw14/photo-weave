@@ -27,6 +27,7 @@ type State = {
 	randomPhoto: string;
 	welcome: boolean;
 	emptyFormValue: boolean;
+	recentSearches: string[];
 };
 
 class App extends Component {
@@ -51,7 +52,8 @@ class App extends Component {
 		modalDescription: "",
 		randomPhoto: "",
 		welcome: true,
-		emptyFormValue: false
+		emptyFormValue: false,
+		recentSearches: []
 	};
 	componentDidMount() {
 		const url: string = "https://api.unsplash.com/photos/random";
@@ -59,6 +61,10 @@ class App extends Component {
 			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
 		const grid = false;
 		this.callAPI(url, clientID, grid);
+		document.addEventListener("mousedown", this.handleCloseModal, false);
+	}
+	componentWillUnmount() {
+		document.addEventListener("mousedown", this.handleCloseModal, false);
 	}
 	callAPI = (url: string, clientID: string, grid: boolean) => {
 		const limiter = true;
@@ -113,7 +119,8 @@ class App extends Component {
 	// Submits the users search request and calls API
 	handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
-		const { query, page, perPage } = this.state;
+		const { query, page, perPage, recentSearches } = this.state;
+		recentSearches.push(query);
 		const url: string = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}`;
 		// My Unsplash developer ID
 		const clientID: string =
@@ -134,6 +141,7 @@ class App extends Component {
 				welcome: false
 			});
 			this.callAPI(url, clientID, grid);
+			this.handleTrackSearches(query);
 		}
 	};
 	/* Refactor, change from multiple arguments to take one object */
@@ -175,6 +183,16 @@ class App extends Component {
 	handleGoHome = () => {
 		this.setState({
 			welcome: true
+		});
+	};
+	handleTrackSearches = (query: string) => {
+		const { recentSearches } = this.state;
+		// Prevents displaying duplicate searches
+		const filteredSearches = recentSearches.filter((searchItem, index) => {
+			return recentSearches.indexOf(searchItem) >= index;
+		});
+		this.setState({
+			recentSearches: filteredSearches
 		});
 	};
 	render() {
