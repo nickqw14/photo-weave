@@ -28,6 +28,8 @@ type State = {
 	welcome: boolean;
 	emptyFormValue: boolean;
 	recentSearches: string[];
+	lastScrollY: number;
+	scrollingUp: boolean;
 };
 
 class App extends Component {
@@ -53,7 +55,9 @@ class App extends Component {
 		randomPhoto: "",
 		welcome: true,
 		emptyFormValue: false,
-		recentSearches: []
+		recentSearches: [],
+		lastScrollY: 0,
+		scrollingUp: false
 	};
 	componentDidMount() {
 		const url: string = "https://api.unsplash.com/photos/random";
@@ -61,10 +65,10 @@ class App extends Component {
 			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
 		const grid = false;
 		this.callAPI(url, clientID, grid);
-		document.addEventListener("mousedown", this.handleCloseModal, false);
+		document.addEventListener("scroll", this.handleScroll, false);
 	}
 	componentWillUnmount() {
-		document.addEventListener("mousedown", this.handleCloseModal, false);
+		document.addEventListener("scroll", this.handleScroll, false);
 	}
 	callAPI = (url: string, clientID: string, grid: boolean) => {
 		const limiter = true;
@@ -194,6 +198,24 @@ class App extends Component {
 		this.setState({
 			recentSearches: filteredSearches
 		});
+	};
+	handleScroll = () => {
+		// NEEDS THROTTLE
+		const { lastScrollY } = this.state;
+		const currentScrollY = window.scrollY;
+
+		if (currentScrollY > lastScrollY) {
+			console.log("down");
+			this.setState({
+				scrollingUp: false
+			});
+		} else {
+			console.log("up");
+			this.setState({
+				scrollingUp: true
+			});
+		}
+		this.setState({ lastScrollY: currentScrollY });
 	};
 	render() {
 		const {
