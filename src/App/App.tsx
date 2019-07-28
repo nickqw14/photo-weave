@@ -204,7 +204,11 @@ class App extends Component {
 		const { lastScrollY } = this.state;
 		const currentScrollY = window.scrollY;
 
-		if (currentScrollY > lastScrollY) {
+		if (currentScrollY < 10) {
+			this.setState({
+				scrollingUp: true
+			});
+		} else if (currentScrollY > lastScrollY) {
 			this.setState({
 				scrollingUp: false
 			});
