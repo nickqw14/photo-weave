@@ -2,6 +2,7 @@ import React, { Component, Suspense, lazy } from "react";
 import styles from "./app.module.scss";
 import Grid from "../Grid/containers/Grid";
 import Loading from "../Loading/components/Loading";
+import _ from "lodash";
 import { Welcome } from "../Welcome/containers/Welcome";
 import InfiniteScroll from "react-infinite-scroller";
 
@@ -65,10 +66,10 @@ class App extends Component {
 			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
 		const grid = false;
 		this.callAPI(url, clientID, grid);
-		document.addEventListener("scroll", this.handleScroll, false);
+		document.addEventListener("scroll", _.throttle(this.handleScroll, 250));
 	}
 	componentWillUnmount() {
-		document.addEventListener("scroll", this.handleScroll, false);
+		document.addEventListener("scroll", _.throttle(this.handleScroll, 250));
 	}
 	callAPI = (url: string, clientID: string, grid: boolean) => {
 		const limiter = true;
@@ -200,7 +201,6 @@ class App extends Component {
 		});
 	};
 	handleScroll = () => {
-		// NEEDS THROTTLE
 		const { lastScrollY } = this.state;
 		const currentScrollY = window.scrollY;
 
