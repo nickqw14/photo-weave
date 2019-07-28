@@ -33,6 +33,7 @@ type Props = {
 	handleGoHome: () => void;
 	emptyFormValue: boolean;
 	query: string;
+	scrollingUp: boolean;
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -55,7 +56,8 @@ class Grid extends React.Component<Props, {}> {
 			handleGoHome,
 			welcome,
 			emptyFormValue,
-			query
+			query,
+			scrollingUp
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
@@ -66,6 +68,7 @@ class Grid extends React.Component<Props, {}> {
 					onSubmit={onSubmit}
 					emptyFormValue={emptyFormValue}
 					query={query}
+					scrollingUp={scrollingUp}
 				/>
 				{modalOn && (
 					<Modal

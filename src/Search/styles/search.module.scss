@@ -11,7 +11,7 @@
 	height: 55px;
 	background-color: white;
 	display: flex;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
 	justify-content: center;
@@ -133,7 +133,7 @@
 .searchOnHome {
 	width: 100%;
 	min-width: 320px;
-	height: 80px;
+	height: 110px;
 	max-width: 1300px;
 	z-index: 10;
 	@media screen and (min-width: 525px) {
@@ -153,6 +153,7 @@
 			height: 20px;
 			font-size: 16px;
 			font-weight: 300;
+			margin-left: 15px;
 			@media screen and (min-width: 465px) {
 				width: calc(70vw + 134px);
 			}

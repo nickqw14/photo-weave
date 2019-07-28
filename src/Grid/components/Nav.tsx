@@ -9,6 +9,7 @@ type Props = {
 	onSubmit: (event: React.SyntheticEvent) => void;
 	emptyFormValue: boolean;
 	query: string;
+	scrollingUp: boolean;
 };
 
 export const Nav: React.SFC<Props> = props => {
@@ -18,10 +19,13 @@ export const Nav: React.SFC<Props> = props => {
 		onChange,
 		onSubmit,
 		emptyFormValue,
-		query
+		query,
+		scrollingUp
 	} = props;
 	return (
-		<div className={styles.navContainer}>
+		<div
+			className={scrollingUp ? `${styles.navAppear}` : `${styles.navDisappear}`}
+		>
 			<div className={styles.mobileView}>
 				<span onClick={handleGoHome}>Home</span>
 				<span>Search</span>

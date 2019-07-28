@@ -58,7 +58,7 @@ class App extends Component {
 		emptyFormValue: false,
 		recentSearches: [],
 		lastScrollY: 0,
-		scrollingUp: false
+		scrollingUp: true
 	};
 	componentDidMount() {
 		const url: string = "https://api.unsplash.com/photos/random";
@@ -205,12 +205,10 @@ class App extends Component {
 		const currentScrollY = window.scrollY;
 
 		if (currentScrollY > lastScrollY) {
-			console.log("down");
 			this.setState({
 				scrollingUp: false
 			});
 		} else {
-			console.log("up");
 			this.setState({
 				scrollingUp: true
 			});
@@ -235,7 +233,8 @@ class App extends Component {
 			loaded,
 			welcome,
 			emptyFormValue,
-			query
+			query,
+			scrollingUp
 		} = this.state;
 		return welcome ? (
 			<Welcome
@@ -255,7 +254,6 @@ class App extends Component {
 				initialLoad={false}
 				useCapture={true}
 				isReverse={false}
-				threshold={500}
 			>
 				<div className={styles.App}>
 					{/* {images.length == 0 && loading == true ? (
@@ -282,6 +280,7 @@ class App extends Component {
 						handleGoHome={this.handleGoHome}
 						emptyFormValue={emptyFormValue}
 						query={query}
+						scrollingUp={scrollingUp}
 					/>
 				</div>
 			</InfiniteScroll>
