@@ -5,6 +5,7 @@ import { Nav } from "../components/Nav";
 import Loading from "../../Loading/components/Loading";
 import { Modal } from "../components/Modal";
 import { UserCard } from "../components/UserCard";
+import { RecentSearches } from "../../RecentSearches/containers/RecentSearches";
 
 type Props = {
 	images: [];
@@ -34,6 +35,8 @@ type Props = {
 	emptyFormValue: boolean;
 	query: string;
 	scrollingUp: boolean;
+	recentSearchPage: boolean;
+	recentSearches: string[];
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -57,7 +60,9 @@ class Grid extends React.Component<Props, {}> {
 			welcome,
 			emptyFormValue,
 			query,
-			scrollingUp
+			scrollingUp,
+			recentSearchPage,
+			recentSearches
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
@@ -80,6 +85,16 @@ class Grid extends React.Component<Props, {}> {
 						modalWidth={modalWidth}
 						closeModal={handleCloseModal}
 						description={modalDescription}
+					/>
+				)}
+				{recentSearchPage && (
+					<RecentSearches
+						onChange={onChange}
+						onSubmit={onSubmit}
+						emptyFormValue={emptyFormValue}
+						query={query}
+						recentSearchPage={recentSearchPage}
+						recentSearches={recentSearches}
 					/>
 				)}
 				<div className={styles.grid}>

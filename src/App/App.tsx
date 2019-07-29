@@ -29,6 +29,7 @@ type State = {
 	welcome: boolean;
 	emptyFormValue: boolean;
 	recentSearches: string[];
+	recentSearchPage: boolean;
 	lastScrollY: number;
 	scrollingUp: boolean;
 };
@@ -57,6 +58,7 @@ class App extends Component {
 		welcome: true,
 		emptyFormValue: false,
 		recentSearches: [],
+		recentSearchPage: false,
 		lastScrollY: 0,
 		scrollingUp: true
 	};
@@ -238,7 +240,9 @@ class App extends Component {
 			welcome,
 			emptyFormValue,
 			query,
-			scrollingUp
+			scrollingUp,
+			recentSearchPage,
+			recentSearches
 		} = this.state;
 		return welcome ? (
 			<Welcome
@@ -285,6 +289,8 @@ class App extends Component {
 						emptyFormValue={emptyFormValue}
 						query={query}
 						scrollingUp={scrollingUp}
+						recentSearchPage={recentSearchPage}
+						recentSearches={recentSearches}
 					/>
 				</div>
 			</InfiniteScroll>
