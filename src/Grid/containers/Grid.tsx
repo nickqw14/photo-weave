@@ -37,6 +37,8 @@ type Props = {
 	scrollingUp: boolean;
 	recentSearchPage: boolean;
 	recentSearches: string[];
+	handleSearchPage: () => void;
+	handleRemoveRecentSearchItem: (value: string) => void;
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -62,7 +64,9 @@ class Grid extends React.Component<Props, {}> {
 			query,
 			scrollingUp,
 			recentSearchPage,
-			recentSearches
+			recentSearches,
+			handleSearchPage,
+			handleRemoveRecentSearchItem
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
@@ -74,6 +78,8 @@ class Grid extends React.Component<Props, {}> {
 					emptyFormValue={emptyFormValue}
 					query={query}
 					scrollingUp={scrollingUp}
+					handleSearchPage={handleSearchPage}
+					recentSearchPage={recentSearchPage}
 				/>
 				{modalOn && (
 					<Modal
@@ -95,6 +101,7 @@ class Grid extends React.Component<Props, {}> {
 						query={query}
 						recentSearchPage={recentSearchPage}
 						recentSearches={recentSearches}
+						handleRemoveRecentSearchItem={handleRemoveRecentSearchItem}
 					/>
 				)}
 				<div className={styles.grid}>

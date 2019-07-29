@@ -145,7 +145,8 @@ class App extends Component {
 				images: [],
 				page: 1,
 				loaded: false,
-				welcome: false
+				welcome: false,
+				recentSearchPage: false
 			});
 			this.callAPI(url, clientID, grid);
 			this.handleTrackSearches(query);
@@ -202,6 +203,17 @@ class App extends Component {
 			recentSearches: filteredSearches
 		});
 	};
+	handleRemoveRecentSearchItem = (value: string) => {
+		const { recentSearches } = this.state;
+		const filteredSearches = recentSearches.filter(searchItem => {
+			if (searchItem !== value) {
+				return true;
+			}
+		});
+		this.setState({
+			recentSearches: filteredSearches
+		});
+	};
 	handleScroll = () => {
 		const { lastScrollY } = this.state;
 		const currentScrollY = window.scrollY;
@@ -220,6 +232,11 @@ class App extends Component {
 			});
 		}
 		this.setState({ lastScrollY: currentScrollY });
+	};
+	handleSearchPage = () => {
+		this.setState({
+			recentSearchPage: !this.state.recentSearchPage
+		});
 	};
 	render() {
 		const {
@@ -291,6 +308,8 @@ class App extends Component {
 						scrollingUp={scrollingUp}
 						recentSearchPage={recentSearchPage}
 						recentSearches={recentSearches}
+						handleSearchPage={this.handleSearchPage}
+						handleRemoveRecentSearchItem={this.handleRemoveRecentSearchItem}
 					/>
 				</div>
 			</InfiniteScroll>

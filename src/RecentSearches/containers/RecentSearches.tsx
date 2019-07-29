@@ -9,6 +9,7 @@ type Props = {
 	query: string;
 	recentSearchPage: boolean;
 	recentSearches: string[];
+	handleRemoveRecentSearchItem: (value: string) => void;
 };
 
 export const RecentSearches: React.SFC<Props> = props => {
@@ -18,22 +19,32 @@ export const RecentSearches: React.SFC<Props> = props => {
 		emptyFormValue,
 		query,
 		recentSearchPage,
-		recentSearches
+		recentSearches,
+		handleRemoveRecentSearchItem
 	} = props;
 	return (
 		<div className={styles.recentSearchesContainer}>
-			<Search
-				onChange={onChange}
-				onSubmit={onSubmit}
-				onHomePage={false}
-				emptyFormValue={emptyFormValue}
-				query={query}
-			/>
-			<div>Recent Searches</div>
-			<div>
-				{recentSearches.map(searchItem => {
-					return searchItem;
-				})}
+			<div className={styles.searchWrapper}>
+				<h1>Recent Searches</h1>
+				<div>
+					{recentSearches.map(searchItem => {
+						return (
+							<span>
+								{searchItem.toLowerCase()}
+								<span onClick={() => handleRemoveRecentSearchItem(searchItem)}>
+									X
+								</span>
+							</span>
+						);
+					})}
+				</div>
+				<Search
+					onChange={onChange}
+					onSubmit={onSubmit}
+					onHomePage={false}
+					emptyFormValue={emptyFormValue}
+					query={query}
+				/>
 			</div>
 		</div>
 	);

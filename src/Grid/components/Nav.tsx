@@ -9,9 +9,11 @@ type Props = {
 	welcome: boolean;
 	onChange: (value: any) => void;
 	onSubmit: (event: React.SyntheticEvent) => void;
+	handleSearchPage: () => void;
 	emptyFormValue: boolean;
 	query: string;
 	scrollingUp: boolean;
+	recentSearchPage: boolean;
 };
 
 export const Nav: React.SFC<Props> = props => {
@@ -22,18 +24,24 @@ export const Nav: React.SFC<Props> = props => {
 		onSubmit,
 		emptyFormValue,
 		query,
-		scrollingUp
+		scrollingUp,
+		handleSearchPage,
+		recentSearchPage
 	} = props;
 	return (
 		<div
-			className={scrollingUp ? `${styles.navAppear}` : `${styles.navDisappear}`}
+			className={
+				scrollingUp || recentSearchPage
+					? `${styles.navAppear}`
+					: `${styles.navDisappear}`
+			}
 		>
 			<div className={styles.mobileView}>
 				<span className={styles.logo} onClick={handleGoHome}>
 					{/* <MdHome size={32} color={"#505050"} /> */}
 					Photo Weave
 				</span>
-				<span>
+				<span onClick={handleSearchPage}>
 					<MdSearch size={32} color={"#505050"} />
 				</span>
 			</div>
