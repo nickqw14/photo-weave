@@ -44,6 +44,14 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			cursor: pointer;
+		}
+		.logo {
+			width: 150px;
+			margin-left: 5px;
+			letter-spacing: 0.2em;
+			color: "#505050";
+			cursor: pointer;
 		}
 		@media screen and (min-width: 525px) {
 			display: none;
@@ -90,6 +98,12 @@
 		@media screen and (min-width: 525px) {
 			display: none;
 		}
+		.logo {
+			width: 150px;
+			margin-left: 5px;
+			letter-spacing: 0.2em;
+			color: "#505050";
+		}
 		span {
 			height: 100%;
 			width: 60px;
@@ -97,6 +111,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			cursor: pointer;
 		}
 	}
 	.desktopView {

@@ -27,12 +27,13 @@
 		position: absolute;
 		top: 15px;
 		right: 15px;
-		color: white;
+		color: black;
 		cursor: pointer;
 		z-index: 100;
 		@media (min-width: 465px) {
 			top: 8px;
 			right: 8px;
+			color: white;
 		}
 	}
 	.portraitThumbnail {

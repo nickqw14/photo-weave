@@ -1,4 +1,6 @@
 import * as React from "react";
+import { MdSearch } from "react-icons/md";
+import { MdHome } from "react-icons/md";
 import styles from "../styles/nav.module.scss";
 import Search from "../../Search/containers/Search";
 
@@ -27,8 +29,13 @@ export const Nav: React.SFC<Props> = props => {
 			className={scrollingUp ? `${styles.navAppear}` : `${styles.navDisappear}`}
 		>
 			<div className={styles.mobileView}>
-				<span onClick={handleGoHome}>Home</span>
-				<span>Search</span>
+				<span className={styles.logo} onClick={handleGoHome}>
+					{/* <MdHome size={32} color={"#505050"} /> */}
+					Photo Weave
+				</span>
+				<span>
+					<MdSearch size={32} color={"#505050"} />
+				</span>
 			</div>
 			<div className={styles.desktopView}>
 				<Search
