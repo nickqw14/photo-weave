@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import styles from "../styles/grid.module.scss";
 import { GridTile } from "../components/GridTile";
-import Search from "../../Search/containers/Search";
+import { Nav } from "../components/Nav";
 import Loading from "../../Loading/components/Loading";
 import { Modal } from "../components/Modal";
 import { UserCard } from "../components/UserCard";
+import { RecentSearches } from "../../RecentSearches/containers/RecentSearches";
 
 type Props = {
 	images: [];
 	loading: boolean;
 	modalOn: boolean;
 	onChange: (value: string) => void;
-	onSubmit: () => void;
+	onSubmit: (event: React.SyntheticEvent) => void;
 	handleModal: (
 		image: string,
 		userName: string,
@@ -29,6 +30,13 @@ type Props = {
 	modalHeight: number;
 	modalWidth: number;
 	modalDescription: string;
+	welcome: boolean;
+	handleGoHome: () => void;
+	emptyFormValue: boolean;
+	query: string;
+	scrollingUp: boolean;
+	recentSearchPage: boolean;
+	recentSearches: string[];
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -47,11 +55,26 @@ class Grid extends React.Component<Props, {}> {
 			modalHeight,
 			modalWidth,
 			handleCloseModal,
-			modalDescription
+			modalDescription,
+			handleGoHome,
+			welcome,
+			emptyFormValue,
+			query,
+			scrollingUp,
+			recentSearchPage,
+			recentSearches
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
-				<Search onHomePage={false} onChange={onChange} onSubmit={onSubmit} />
+				<Nav
+					handleGoHome={handleGoHome}
+					onChange={onChange}
+					welcome={welcome}
+					onSubmit={onSubmit}
+					emptyFormValue={emptyFormValue}
+					query={query}
+					scrollingUp={scrollingUp}
+				/>
 				{modalOn && (
 					<Modal
 						modalImage={modalImage}
@@ -62,6 +85,16 @@ class Grid extends React.Component<Props, {}> {
 						modalWidth={modalWidth}
 						closeModal={handleCloseModal}
 						description={modalDescription}
+					/>
+				)}
+				{recentSearchPage && (
+					<RecentSearches
+						onChange={onChange}
+						onSubmit={onSubmit}
+						emptyFormValue={emptyFormValue}
+						query={query}
+						recentSearchPage={recentSearchPage}
+						recentSearches={recentSearches}
 					/>
 				)}
 				<div className={styles.grid}>

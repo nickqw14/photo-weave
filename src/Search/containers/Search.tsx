@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import styles from "../styles/search.module.scss";
+import { Nav } from "../../Grid/components/Nav";
 
 type Props = {
 	onChange: (value: any) => void;
-	onSubmit: () => void;
+	onSubmit: (event: React.SyntheticEvent) => void;
 	onHomePage: boolean;
-	image?: string;
+	emptyFormValue: boolean;
+	query: string;
 };
 
 class Search extends React.Component<Props> {
@@ -16,18 +18,43 @@ class Search extends React.Component<Props> {
 	};
 
 	render() {
-		const { onChange, onSubmit } = this.props;
+		const {
+			onChange,
+			onSubmit,
+			onHomePage,
+			emptyFormValue,
+			query
+		} = this.props;
+		const center = {
+			justifyContent: "center"
+		};
+		const spaceAround = {
+			justifyContent: "space-around"
+		};
 		return (
-			<div className={styles.searchContainer}>
-				<form onSubmit={onSubmit}>
-					<input
-						className={styles.searchInput}
-						onChange={this.handleChange}
-						placeholder={"Search Photos"}
-					/>
-				</form>
-				<div className={styles.searchSubmit} onClick={onSubmit}>
-					Search
+			<div
+				className={
+					onHomePage ? `${styles.searchOnHome}` : `${styles.searchContainer}`
+				}
+			>
+				<div
+					className={styles.content}
+					style={emptyFormValue ? spaceAround : center}
+				>
+					<form className={styles.formContainer} onSubmit={onSubmit}>
+						<input
+							className={styles.searchInput}
+							onChange={this.handleChange}
+							placeholder={"Search Photos"}
+							value={query}
+						/>
+						<div className={styles.searchSubmit} onClick={onSubmit}>
+							Search
+						</div>
+					</form>
+					{emptyFormValue && (
+						<span className={styles.emptyForm}>Oops! Please enter a value</span>
+					)}
 				</div>
 			</div>
 		);
