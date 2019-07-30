@@ -4,7 +4,6 @@ import Grid from "../Grid/containers/Grid";
 import Loading from "../Loading/components/Loading";
 import _ from "lodash";
 import { Welcome } from "../Welcome/containers/Welcome";
-import InfiniteScroll from "react-infinite-scroller";
 
 type State = {
 	error: boolean;
@@ -64,11 +63,11 @@ class App extends Component {
 	};
 	componentDidMount() {
 		const url: string = "https://api.unsplash.com/photos/random";
-		const clientID: string =
-			"9ac9908fc8f8067a3bfae8c3264fa8f2722acb93bfb1b580b9ed3fcc515b042d";
+		const clientID: string = apiKey;
 		const grid = false;
 		this.callAPI(url, clientID, grid);
 		document.addEventListener("scroll", _.throttle(this.handleScroll, 250));
+		console.log(process.env.REACT_APP_API_KEY);
 	}
 	componentWillUnmount() {
 		document.addEventListener("scroll", _.throttle(this.handleScroll, 250));
@@ -130,8 +129,7 @@ class App extends Component {
 		recentSearches.push(query);
 		const url: string = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}`;
 		// My Unsplash developer ID
-		const clientID: string =
-			"9ac9908fc8f8067a3bfae8c3264fa8f2722acb93bfb1b580b9ed3fcc515b042d";
+		const clientID: string = apiKey;
 		const grid = true;
 		/* Check value before submitting to API */
 		if (query.length === 0) {
@@ -178,8 +176,7 @@ class App extends Component {
 			this.state.page
 		}&per_page=${this.state.perPage}&query=${this.state.query}`;
 		// My Unsplash developer ID
-		const clientID: string =
-			"9ac9908fc8f8067a3bfae8c3264fa8f2722acb93bfb1b580b9ed3fcc515b042d";
+		const clientID: string = apiKey;
 		const grid = true;
 		this.callAPI(url, clientID, grid);
 	};

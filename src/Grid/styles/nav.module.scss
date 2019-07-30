@@ -38,6 +38,7 @@
 		height: 100%;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		span {
 			height: 100%;
 			width: 60px;
@@ -49,10 +50,12 @@
 		}
 		.logo {
 			width: 150px;
+			height: 30px;
 			margin-left: 5px;
 			letter-spacing: 0.2em;
 			color: #505050;
 			cursor: pointer;
+			border-radius: 4px;
 		}
 		@media screen and (min-width: 525px) {
 			display: none;
