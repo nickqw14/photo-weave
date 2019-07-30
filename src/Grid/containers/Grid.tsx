@@ -93,17 +93,15 @@ class Grid extends React.Component<Props, {}> {
 						description={modalDescription}
 					/>
 				)}
-				{recentSearchPage && (
-					<RecentSearches
-						onChange={onChange}
-						onSubmit={onSubmit}
-						emptyFormValue={emptyFormValue}
-						query={query}
-						recentSearchPage={recentSearchPage}
-						recentSearches={recentSearches}
-						handleRemoveRecentSearchItem={handleRemoveRecentSearchItem}
-					/>
-				)}
+				<RecentSearches
+					onChange={onChange}
+					onSubmit={onSubmit}
+					emptyFormValue={emptyFormValue}
+					query={query}
+					recentSearchPage={recentSearchPage}
+					recentSearches={recentSearches}
+					handleRemoveRecentSearchItem={handleRemoveRecentSearchItem}
+				/>
 				<div className={styles.grid}>
 					{images.map((image: any) => {
 						return (

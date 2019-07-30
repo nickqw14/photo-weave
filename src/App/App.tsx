@@ -39,7 +39,7 @@ class App extends Component {
 		error: false,
 		images: [],
 		page: 0,
-		perPage: 30,
+		perPage: 15,
 		query: "",
 		loading: false,
 		loaded: false,
@@ -65,7 +65,7 @@ class App extends Component {
 	componentDidMount() {
 		const url: string = "https://api.unsplash.com/photos/random";
 		const clientID: string =
-			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
+			"9ac9908fc8f8067a3bfae8c3264fa8f2722acb93bfb1b580b9ed3fcc515b042d";
 		const grid = false;
 		this.callAPI(url, clientID, grid);
 		document.addEventListener("scroll", _.throttle(this.handleScroll, 250));
@@ -101,7 +101,7 @@ class App extends Component {
 							loading: false,
 							loaded: true,
 							page: this.state.page += 1,
-							totalPages: limiter ? 4 : data.total_pagesd,
+							totalPages: limiter ? 1 : data.total_pages,
 							welcome: false
 						})
 					);
@@ -131,7 +131,7 @@ class App extends Component {
 		const url: string = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}`;
 		// My Unsplash developer ID
 		const clientID: string =
-			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
+			"9ac9908fc8f8067a3bfae8c3264fa8f2722acb93bfb1b580b9ed3fcc515b042d";
 		const grid = true;
 		/* Check value before submitting to API */
 		if (query.length === 0) {
@@ -179,7 +179,7 @@ class App extends Component {
 		}&per_page=${this.state.perPage}&query=${this.state.query}`;
 		// My Unsplash developer ID
 		const clientID: string =
-			"27a6a7d4f395b36ee99907ff50c400e88a36ea7d76130397f368ee3b01dc918b";
+			"9ac9908fc8f8067a3bfae8c3264fa8f2722acb93bfb1b580b9ed3fcc515b042d";
 		const grid = true;
 		this.callAPI(url, clientID, grid);
 	};
