@@ -10,6 +10,7 @@ import { RecentSearches } from "../../RecentSearches/containers/RecentSearches";
 type Props = {
 	images: [];
 	loading: boolean;
+	loaded: boolean;
 	modalOn: boolean;
 	onChange: (value: string) => void;
 	onSubmit: (event: React.SyntheticEvent) => void;
@@ -47,6 +48,7 @@ class Grid extends React.Component<Props, {}> {
 		const {
 			images,
 			loading,
+			loaded,
 			onChange,
 			onSubmit,
 			handleModal,
@@ -124,10 +126,14 @@ class Grid extends React.Component<Props, {}> {
 						);
 					})}
 				</div>
-				{images.length === 0 && !loading ? (
+				{/* {images.length === 0 && !loading ? (
 					<h1 className={styles.noResults}>No Results</h1>
 				) : (
 					<Loading />
+				)} */}
+				{loading && <Loading />}
+				{loaded && images.length === 0 && (
+					<h1 className={styles.noResults}>No Results</h1>
 				)}
 			</div>
 		);

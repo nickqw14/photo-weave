@@ -124,7 +124,7 @@ class App extends Component {
 		}
 	};
 	getListPhotos = (query: string, page: number, perPage: number) => {
-		const limiter = true;
+		const limiter = false;
 		const options = {
 			query: query,
 			page: page,
@@ -141,7 +141,7 @@ class App extends Component {
 					loading: false,
 					loaded: true,
 					page: this.state.page += 1,
-					totalPages: limiter ? 5 : res.data.total_pages,
+					totalPages: limiter ? 3 : res.data.total_pages,
 					welcome: false
 				});
 			})
@@ -172,12 +172,14 @@ class App extends Component {
 	};
 	handleLoadMore = () => {
 		// My Unsplash developer ID
-		const { query, page, perPage, loaded } = this.state;
-		this.setState({
-			loading: true
-		});
-		if (loaded) {
+		const { query, page, perPage, loaded, totalPages } = this.state;
+		if (page <= totalPages) {
+			this.setState({
+				loading: true,
+				loaded: false
+			});
 			this.getListPhotos(query, page, perPage);
+			console.log("Load More");
 		}
 	};
 	handleCloseModal = () => {
@@ -276,7 +278,7 @@ class App extends Component {
 			<InfiniteScroll
 				pageStart={0}
 				loadMore={this.handleLoadMore}
-				hasMore={!loading}
+				hasMore={loaded && page < totalPages ? true : false}
 				useWindow={true}
 				initialLoad={false}
 				useCapture={true}
@@ -286,6 +288,7 @@ class App extends Component {
 					<Grid
 						images={images}
 						loading={loading}
+						loaded={loaded}
 						onChange={this.handleChange}
 						onSubmit={this.handleSubmit}
 						handleModal={this.handleModal}
