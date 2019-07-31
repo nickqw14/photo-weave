@@ -1,17 +1,57 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const pino = require("express-pino-logger")();
+const fetch = require("node-fetch");
+require("dotenv").config(); // Get env variables
+const port = process.env.MYPORT;
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(pino);
 
-app.get("/api/greeting", (req, res) => {
-	const name = req.query.name || "World";
-	res.setHeader("Content-Type", "application/json");
-	res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+function checkStatus(res) {
+	if (res.ok) {
+		return res;
+	} else {
+		throw res;
+	}
+}
+app.get("/api/random-photo", (req, res) => {
+	const url = "https://api.unsplash.com/photos/random";
+	const clientID = process.env.API_KEY;
+	const options = {
+		headers: {
+			Authorization: `Client-ID ${clientID}`
+		}
+	};
+	fetch(url, options)
+		.then(checkStatus)
+		.then(res => res.json())
+		.then(image => res.send(image.urls))
+		.catch(err =>
+			res.send({ error: "There was a problem, " + err.statusText })
+		);
+});
+app.post("/api/search-photos", (req, res) => {
+	const query = req.body.query;
+	const page = req.body.page;
+	const perPage = req.body.perPage;
+	console.log(req.body);
+	const url = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}`;
+	const clientID = process.env.API_KEY;
+	const options = {
+		headers: {
+			Authorization: `Client-ID ${clientID}`
+		}
+	};
+	fetch(url, options)
+		.then(checkStatus)
+		.then(res => res.json())
+		.then(data => res.send(data))
+		.catch(err =>
+			res.send({ error: "There was a problem, " + err.statusText })
+		);
 });
 
-app.listen(3001, () =>
-	console.log("Express server is running on localhost:3001")
-);
+app.listen(port, () => console.log(`Server is running on ${port}`));

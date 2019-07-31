@@ -4,6 +4,8 @@ import Grid from "../Grid/containers/Grid";
 import Loading from "../Loading/components/Loading";
 import _ from "lodash";
 import { Welcome } from "../Welcome/containers/Welcome";
+import InfiniteScroll from "react-infinite-scroller";
+import axios from "axios";
 
 type State = {
 	error: boolean;
@@ -62,59 +64,29 @@ class App extends Component {
 		scrollingUp: true
 	};
 	componentDidMount() {
-		const url: string = "https://api.unsplash.com/photos/random";
-		const clientID: string = apiKey;
-		const grid = false;
-		this.callAPI(url, clientID, grid);
+		const url: string = "/api/random-photo";
+		this.getRandomPhoto(url);
 		document.addEventListener("scroll", _.throttle(this.handleScroll, 250));
-		console.log(process.env.REACT_APP_API_KEY);
 	}
 	componentWillUnmount() {
 		document.addEventListener("scroll", _.throttle(this.handleScroll, 250));
 	}
-	callAPI = (url: string, clientID: string, grid: boolean) => {
+	getRandomPhoto = (url: string) => {
 		const limiter = true;
-		// Authorization
-		const options = {
-			headers: {
-				Authorization: `Client-ID ${clientID}`
-			}
-		};
-		// Fetch the data from unsplash
-		fetch(url, options)
-			.then(response => {
-				if (response.status !== 200) {
-					this.setState({
-						response: `There was a problem, status code ${response.status}`,
-						loading: false
-					});
-					return;
-				}
+		axios
+			.get(url)
+			.then(res => {
 				this.setState({
-					loading: true
+					randomPhoto: res.data.regular
 				});
-				if (grid) {
-					response.json().then(data =>
-						this.setState({
-							images: [...this.state.images, ...data.results],
-							loading: false,
-							loaded: true,
-							page: this.state.page += 1,
-							totalPages: limiter ? 1 : data.total_pages,
-							welcome: false
-						})
-					);
-				} else {
-					response.json().then(data =>
-						this.setState({
-							randomPhoto: data.urls.regular
-						})
-					);
-				}
 			})
-			.catch(err =>
-				this.setState({ error: true, response: err, loading: false })
-			);
+			.catch(err => {
+				this.setState({
+					error: true,
+					response: err,
+					loading: false
+				});
+			});
 	};
 	// Gets value as user types into the input
 	handleChange = (value: any) => {
@@ -127,9 +99,8 @@ class App extends Component {
 		event.preventDefault();
 		const { query, page, perPage, recentSearches } = this.state;
 		recentSearches.push(query);
-		const url: string = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}`;
+		const url = "/api/search-photos";
 		// My Unsplash developer ID
-		const clientID: string = apiKey;
 		const grid = true;
 		/* Check value before submitting to API */
 		if (query.length === 0) {
@@ -146,9 +117,35 @@ class App extends Component {
 				welcome: false,
 				recentSearchPage: false
 			});
-			this.callAPI(url, clientID, grid);
+			this.getListPhotos(query, page, perPage);
 			this.handleTrackSearches(query);
 		}
+	};
+	getListPhotos = (query: string, page: number, perPage: number) => {
+		const limiter = true;
+		const options = {
+			query: query,
+			page: page,
+			perPage: perPage
+		};
+		axios
+			.post("/api/search-photos", options)
+			.then(res => {
+				this.setState({
+					loading: true
+				});
+				this.setState({
+					images: [...this.state.images, ...res.data.results],
+					loading: false,
+					loaded: true,
+					page: this.state.page += 1,
+					totalPages: limiter ? 5 : res.data.total_pages,
+					welcome: false
+				});
+			})
+			.catch(err =>
+				this.setState({ error: true, response: err, loading: false })
+			);
 	};
 	/* Refactor, change from multiple arguments to take one object */
 	handleModal = (
@@ -172,13 +169,14 @@ class App extends Component {
 		});
 	};
 	handleLoadMore = () => {
-		const url: string = `https://api.unsplash.com/search/photos?page=${
-			this.state.page
-		}&per_page=${this.state.perPage}&query=${this.state.query}`;
 		// My Unsplash developer ID
-		const clientID: string = apiKey;
-		const grid = true;
-		this.callAPI(url, clientID, grid);
+		const { query, page, perPage, loaded } = this.state;
+		this.setState({
+			loading: true
+		});
+		if (loaded) {
+			this.getListPhotos(query, page, perPage);
+		}
 	};
 	handleCloseModal = () => {
 		this.setState({
@@ -271,7 +269,7 @@ class App extends Component {
 			<InfiniteScroll
 				pageStart={0}
 				loadMore={this.handleLoadMore}
-				hasMore={page <= totalPages ? true : false}
+				hasMore={!loading}
 				useWindow={true}
 				initialLoad={false}
 				useCapture={true}
