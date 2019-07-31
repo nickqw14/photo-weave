@@ -6,6 +6,7 @@ import _ from "lodash";
 import { Welcome } from "../Welcome/containers/Welcome";
 import InfiniteScroll from "react-infinite-scroller";
 import axios from "axios";
+import { MdQueryBuilder } from "react-icons/md";
 
 type State = {
 	error: boolean;
@@ -114,6 +115,7 @@ class App extends Component {
 				images: [],
 				page: 1,
 				loaded: false,
+				loading: true,
 				welcome: false,
 				recentSearchPage: false
 			});
@@ -233,6 +235,11 @@ class App extends Component {
 			recentSearchPage: !this.state.recentSearchPage
 		});
 	};
+	handleReplaceQuery = (query: string) => {
+		this.setState({
+			query: query
+		});
+	};
 	render() {
 		const {
 			images,
@@ -276,11 +283,6 @@ class App extends Component {
 				isReverse={false}
 			>
 				<div className={styles.App}>
-					{/* {images.length == 0 && loading == true ? (
-						<Loading />
-					) : (
-						<h1 className={styles.noResults}>No Results</h1>
-					)} */}
 					<Grid
 						images={images}
 						loading={loading}
@@ -305,6 +307,7 @@ class App extends Component {
 						recentSearches={recentSearches}
 						handleSearchPage={this.handleSearchPage}
 						handleRemoveRecentSearchItem={this.handleRemoveRecentSearchItem}
+						handleReplaceQuery={this.handleReplaceQuery}
 					/>
 				</div>
 			</InfiniteScroll>

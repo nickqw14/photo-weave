@@ -39,6 +39,7 @@ type Props = {
 	recentSearches: string[];
 	handleSearchPage: () => void;
 	handleRemoveRecentSearchItem: (value: string) => void;
+	handleReplaceQuery: (query: string) => void;
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -66,7 +67,8 @@ class Grid extends React.Component<Props, {}> {
 			recentSearchPage,
 			recentSearches,
 			handleSearchPage,
-			handleRemoveRecentSearchItem
+			handleRemoveRecentSearchItem,
+			handleReplaceQuery
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
@@ -101,6 +103,7 @@ class Grid extends React.Component<Props, {}> {
 					recentSearchPage={recentSearchPage}
 					recentSearches={recentSearches}
 					handleRemoveRecentSearchItem={handleRemoveRecentSearchItem}
+					handleReplaceQuery={handleReplaceQuery}
 				/>
 				<div className={styles.grid}>
 					{images.map((image: any) => {
@@ -121,7 +124,11 @@ class Grid extends React.Component<Props, {}> {
 						);
 					})}
 				</div>
-				{loading && <Loading />}
+				{images.length === 0 && !loading ? (
+					<h1 className={styles.noResults}>No Results</h1>
+				) : (
+					<Loading />
+				)}
 			</div>
 		);
 	}

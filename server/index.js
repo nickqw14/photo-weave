@@ -37,7 +37,7 @@ app.post("/api/search-photos", (req, res) => {
 	const query = req.body.query;
 	const page = req.body.page;
 	const perPage = req.body.perPage;
-	console.log(req.body);
+
 	const url = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}`;
 	const clientID = process.env.API_KEY;
 	const options = {

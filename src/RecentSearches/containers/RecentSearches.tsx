@@ -11,6 +11,7 @@ type Props = {
 	recentSearchPage: boolean;
 	recentSearches: string[];
 	handleRemoveRecentSearchItem: (value: string) => void;
+	handleReplaceQuery: (value: string) => void;
 };
 
 export const RecentSearches: React.SFC<Props> = props => {
@@ -21,7 +22,8 @@ export const RecentSearches: React.SFC<Props> = props => {
 		query,
 		recentSearchPage,
 		recentSearches,
-		handleRemoveRecentSearchItem
+		handleRemoveRecentSearchItem,
+		handleReplaceQuery
 	} = props;
 	return (
 		<div
@@ -37,8 +39,13 @@ export const RecentSearches: React.SFC<Props> = props => {
 					<div className={styles.searchList}>
 						{recentSearches.map((searchItem, index) => {
 							return (
-								<div className={styles.searchItem}>
-									<span key={index}>{searchItem.toLowerCase()}</span>
+								<div className={styles.searchItem} key={index}>
+									<span
+										onClick={() => handleReplaceQuery(searchItem.toLowerCase())}
+										style={{ cursor: "pointer" }}
+									>
+										{searchItem.toLowerCase()}
+									</span>
 									<span
 										style={{ cursor: "pointer" }}
 										onClick={() => handleRemoveRecentSearchItem(searchItem)}
