@@ -10,6 +10,7 @@ import { RecentSearches } from "../../RecentSearches/containers/RecentSearches";
 type Props = {
 	images: [];
 	loading: boolean;
+	loaded: boolean;
 	modalOn: boolean;
 	onChange: (value: string) => void;
 	onSubmit: (event: React.SyntheticEvent) => void;
@@ -37,6 +38,9 @@ type Props = {
 	scrollingUp: boolean;
 	recentSearchPage: boolean;
 	recentSearches: string[];
+	handleSearchPage: () => void;
+	handleRemoveRecentSearchItem: (value: string) => void;
+	handleReplaceQuery: (query: string) => void;
 };
 
 class Grid extends React.Component<Props, {}> {
@@ -44,6 +48,7 @@ class Grid extends React.Component<Props, {}> {
 		const {
 			images,
 			loading,
+			loaded,
 			onChange,
 			onSubmit,
 			handleModal,
@@ -62,7 +67,10 @@ class Grid extends React.Component<Props, {}> {
 			query,
 			scrollingUp,
 			recentSearchPage,
-			recentSearches
+			recentSearches,
+			handleSearchPage,
+			handleRemoveRecentSearchItem,
+			handleReplaceQuery
 		} = this.props;
 		return (
 			<div className={styles.gridContainer}>
@@ -74,6 +82,8 @@ class Grid extends React.Component<Props, {}> {
 					emptyFormValue={emptyFormValue}
 					query={query}
 					scrollingUp={scrollingUp}
+					handleSearchPage={handleSearchPage}
+					recentSearchPage={recentSearchPage}
 				/>
 				{modalOn && (
 					<Modal
@@ -87,16 +97,16 @@ class Grid extends React.Component<Props, {}> {
 						description={modalDescription}
 					/>
 				)}
-				{recentSearchPage && (
-					<RecentSearches
-						onChange={onChange}
-						onSubmit={onSubmit}
-						emptyFormValue={emptyFormValue}
-						query={query}
-						recentSearchPage={recentSearchPage}
-						recentSearches={recentSearches}
-					/>
-				)}
+				<RecentSearches
+					onChange={onChange}
+					onSubmit={onSubmit}
+					emptyFormValue={emptyFormValue}
+					query={query}
+					recentSearchPage={recentSearchPage}
+					recentSearches={recentSearches}
+					handleRemoveRecentSearchItem={handleRemoveRecentSearchItem}
+					handleReplaceQuery={handleReplaceQuery}
+				/>
 				<div className={styles.grid}>
 					{images.map((image: any) => {
 						return (
@@ -116,7 +126,15 @@ class Grid extends React.Component<Props, {}> {
 						);
 					})}
 				</div>
+				{/* {images.length === 0 && !loading ? (
+					<h1 className={styles.noResults}>No Results</h1>
+				) : (
+					<Loading />
+				)} */}
 				{loading && <Loading />}
+				{loaded && images.length === 0 && (
+					<h1 className={styles.noResults}>No Results</h1>
+				)}
 			</div>
 		);
 	}

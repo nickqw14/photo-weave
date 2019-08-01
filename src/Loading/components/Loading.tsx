@@ -1,12 +1,12 @@
 import * as React from "react";
-import { MdLoop } from "react-icons/md";
+import { FaSpinner } from "react-icons/fa";
 import styles from "../styles/loading.module.scss";
 
 class Loading extends React.Component {
 	render() {
 		return (
 			<div className={styles.loadingContainer}>
-				<MdLoop className={styles.spinner} size={70} />
+				<FaSpinner className={styles.spinner} size={65} />
 			</div>
 		);
 	}

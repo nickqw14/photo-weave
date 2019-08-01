@@ -31,7 +31,7 @@ export const Welcome: React.SFC<Props> = props => {
 			<div className={styles.content}>
 				<div className={styles.greeting}>
 					<h1>Photo Weave</h1>
-					<h3>A mini unsplash replica, search millions of photos</h3>
+					<h3>A simple, yet powerful photo search app</h3>
 				</div>
 				<Search
 					onChange={onChange}
