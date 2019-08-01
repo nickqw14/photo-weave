@@ -179,7 +179,6 @@ class App extends Component {
 				loaded: false
 			});
 			this.getListPhotos(query, page, perPage);
-			console.log("Load More");
 		}
 	};
 	handleCloseModal = () => {
