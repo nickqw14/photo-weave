@@ -65,7 +65,8 @@ class App extends Component {
 		scrollingUp: true
 	};
 	componentDidMount() {
-		const url: string = "/api/random-photo";
+		const url: string =
+			"https://mighty-chamber-95682.herokuapp.com/api/random-photo";
 		this.getRandomPhoto(url);
 		document.addEventListener("scroll", _.throttle(this.handleScroll, 250));
 	}
@@ -100,7 +101,7 @@ class App extends Component {
 		event.preventDefault();
 		const { query, page, perPage, recentSearches } = this.state;
 		recentSearches.push(query);
-		const url = "/api/search-photos";
+		const url = "https://mighty-chamber-95682.herokuapp.com/api/search-photos";
 		// My Unsplash developer ID
 		const grid = true;
 		/* Check value before submitting to API */
@@ -131,7 +132,10 @@ class App extends Component {
 			perPage: perPage
 		};
 		axios
-			.post("/api/search-photos", options)
+			.post(
+				"https://mighty-chamber-95682.herokuapp.com/api/search-photos",
+				options
+			)
 			.then(res => {
 				this.setState({
 					loading: true
